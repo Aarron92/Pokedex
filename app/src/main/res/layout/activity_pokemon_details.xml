@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detailsScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/detailsActivityLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/black">
+
+        <!-- Top level info -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailsSummaryCardView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <RelativeLayout
+                android:id="@+id/detailsRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/detailsPokemonArtworkImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:padding="1dp" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonNumberTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/detailsPokemonArtworkImageView"
+                    android:text="#1"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/detailsPokemonNumberTextView"
+                    android:text="POKEMON NAME"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonSpeciesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsPokemonNameTextView"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/detailsPokemonArtworkImageView"
+                    android:text="Species"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonPrimaryTypeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsPokemonSpeciesTextView"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/detailsPokemonArtworkImageView"
+                    android:text="Type 1"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonSecondaryTypeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsPokemonSpeciesTextView"
+                    android:layout_marginStart="110dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/detailsPokemonArtworkImageView"
+                    android:text="Type 2"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Summary Information -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailsInformationCardView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <RelativeLayout
+                android:id="@+id/detailsInformationRelativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/detailsInformationHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Information"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonHeightLabelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_below="@id/detailsInformationHeader"
+                    android:text="Height:"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonHeightValueTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_below="@id/detailsInformationHeader"
+                    android:layout_toEndOf="@id/detailsPokemonHeightLabelTextView"
+                    android:text="ABC"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonWeightLabelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsInformationHeader"
+                    android:layout_marginStart="75dp"
+                    android:layout_toEndOf="@id/detailsPokemonHeightLabelTextView"
+                    android:text="Weight:"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonWeightValueTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_below="@id/detailsInformationHeader"
+                    android:layout_toEndOf="@id/detailsPokemonWeightLabelTextView"
+                    android:text="XYZ"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsPokemonFlavourTextTextView"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsPokemonHeightValueTextView"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="5dp"
+                    android:text="FLAVOUR TEXT"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/detailsGenderRatioSubHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsPokemonFlavourTextTextView"
+                    android:layout_centerHorizontal="true"
+                    android:text="Gender Ratio"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <!-- TODO: Symbols would look better on the side of the bar -->
+                <TextView
+                    android:id="@+id/detailsGenderRatioMaleSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/detailsGenderRatioSubHeader"
+                    android:text="@string/male_symbol"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="@color/gender_ratio_boy" />
+
+                <TextView
+                    android:id="@+id/detailsGenderRatioFemaleSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/detailsGenderRatioSubHeader"
+                    android:text="@string/female_symbol"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="@color/gender_ratio_girl" />
+
+                <!-- Add a Horizontal Bar Chart using MPAndroidChart library
+                     so that gender ration can be stacked bar -->
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/detailsGenderRatioChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/detailsGenderRatioMaleSymbol" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Abilities -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailsAbilitiesCardView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/detailsAbilitiesHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Abilities"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detailsAbilitiesRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsAbilitiesHeader" />
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Base Stats -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailsBaseStatsCardView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/detailsBaseStatsHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Base Stats"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <!-- Add a Horizontal Bar Chart using MPAndroidChart library
+                     so that the base stats are displayed nicely -->
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/detailsBaseStatsChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/detailsBaseStatsHeader" />
+
+                <TextView
+                    android:id="@+id/detailsBaseStatsTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/detailsBaseStatsChart"
+                    android:text="Total"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Evolution Chain -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailsEvolutionChainCardView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/detailsEvolutionChainHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Evolution Chain"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detailsEvolutionChainRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detailsEvolutionChainHeader" />
+
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Forms -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/detailsFromsCardView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/detailsFormsHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Forms"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                    android:textColor="#000000" />
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

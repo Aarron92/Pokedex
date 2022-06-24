@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Pokedex</string>
+    <string name="lets_go">Let\'s Go!</string>
+
+    <!-- Gender symbols -->
+    <string name="male_symbol">♂</string>
+    <string name="female_symbol">♀</string>
+</resources>

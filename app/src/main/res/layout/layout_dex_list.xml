@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/black">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dexListPokemonEntryCardView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <RelativeLayout
+            android:id="@+id/dexListRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/dexListPokemonNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/dexListPokemonNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/dexListPokemonNumberTextView"
+                android:text="POKEMON NAME"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="#000000" />
+
+            <!-- Just showing number and name for now
+            <TextView
+                android:id="@+id/pokemonSpeciesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pokemonNameTextView"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/pokemonImageView"
+                android:text="Species"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+            <TextView
+                android:id="@+id/pokemonPrimaryTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pokemonSpeciesTextView"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/pokemonImageView"
+                android:text="Type 1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/pokemonSecondaryTypeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pokemonSpeciesTextView"
+                android:layout_marginStart="125dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/pokemonImageView"
+                android:text="Type 2"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            -->
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
