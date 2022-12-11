@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
 import com.soob.pokedex.R;
@@ -17,6 +16,8 @@ import com.soob.pokedex.R;
  */
 public class HomeScreenActivity extends AppCompatActivity
 {
+    public final static String DEX_NAME_KEY = "DEX_NAME_KEY"; // TODO: Make a resource?
+
     /**
      * When the activity is created this method will be called to do everything needed at the start
      *
@@ -36,14 +37,25 @@ public class HomeScreenActivity extends AppCompatActivity
         // set the screen to be displayed - in this case the homescreen
         setContentView(R.layout.activity_home_screen);
 
-        // add the click listener to the button
-        Button letsGoButton = (Button) findViewById(R.id.letsGoButton);
-        letsGoButton.setOnClickListener(new View.OnClickListener()
+        // add the click listener to the button for the Kanto dex
+        Button nationalDexButton = (Button) findViewById(R.id.nationalDexButton);
+        nationalDexButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                openDexList(view);
+                openDexList(view, "National");
+            }
+        });
+
+        // add the click listener to the button for the Kanto dex
+        Button kantoDexButton = (Button) findViewById(R.id.kantoDexButton);
+        kantoDexButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                openDexList(view, "Kanto");
             }
         });
     }
@@ -51,8 +63,10 @@ public class HomeScreenActivity extends AppCompatActivity
     /**
      * When the user presses the button on the home page to open the Dex list
      */
-    public void openDexList(View view)
+    public void openDexList(View view, String dex)
     {
+        // TODO: Make the dex String and enum
+
         /*
          * An Intent is an object that provides runtime binding between separate components e.g. two
          * activities. The Intent represents the app's intent to do something. The constructor takes
@@ -61,6 +75,7 @@ public class HomeScreenActivity extends AppCompatActivity
          * system will deliver the Intent, in this case the next Activity to start
          */
         Intent goToDexListIntent = new Intent(this, DexListActivity.class);
+        goToDexListIntent.putExtra(DEX_NAME_KEY, dex);
 
         // start the new Activity i.e. switch to the other UI component
         startActivity(goToDexListIntent);

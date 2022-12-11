@@ -29,6 +29,8 @@ import retrofit2.Response;
 /**
  * Concrete class that implements ApiQueryThreadCallable to make a query to PokeAPI to get the
  * complete details of a specific Pokemon for the details screen
+ *
+ * TODO: Need to find out why the main details page call is slower than the dex list one
  */
 public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Pokemon, String>
 {

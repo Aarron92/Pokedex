@@ -20,10 +20,18 @@
             android:layout_height="wrap_content"
             android:padding="8dp">
 
+            <ImageView
+                android:id="@+id/dexListPokemonArtworkImageView"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:padding="1dp" />
+
             <TextView
                 android:id="@+id/dexListPokemonNumberTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/dexListPokemonArtworkImageView"
                 android:text="#1"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="#000000" />

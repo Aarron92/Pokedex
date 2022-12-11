@@ -5,18 +5,22 @@ import android.graphics.Bitmap;
 /**
  * Entity class for a Pokemon Summary, an object used to represent the basic attributes of a Pokemon,
  * that are displayed in the main Dex list view
+ *
+ * TODO: Whole class could maybe be removed and just use the Pokemon one if possible as its not
+ *   using different data
  */
 public class PokemonSummary
 {
     /**
      * The artwork of the Pokemon, stored as a Bitmap
+     * TODO: Not returned so might be redundant
      */
     private Bitmap artwork;
 
     /**
      * The number of the Pokemon e.g. #1
      */
-    private String number;
+    private int number;
 
     /**
      * The name of the Pokemon e.g. Bulbasaur
@@ -29,7 +33,7 @@ public class PokemonSummary
     public PokemonSummary()
     {}
 
-    public PokemonSummary(final Bitmap artwork, final String number, final String name)
+    public PokemonSummary(final Bitmap artwork, final int number, final String name)
     {
         this.artwork = artwork;
         this.number = number;
@@ -46,12 +50,12 @@ public class PokemonSummary
         this.artwork = artwork;
     }
 
-    public String getNumber()
+    public int getNumber()
     {
         return this.number;
     }
 
-    public void setNumber(String number)
+    public void setNumber(int number)
     {
         this.number = number;
     }

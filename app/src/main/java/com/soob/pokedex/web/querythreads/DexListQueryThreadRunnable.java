@@ -111,8 +111,9 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
                     int dexNum = i + 1;
 
                     PokemonSummary pokemonSummary = new PokemonSummary();
-                    // pokemonSummary.setArtwork(artwork);
-                    pokemonSummary.setNumber("#" + dexNum);
+                    // TODO: Artwork is not returned in list query so is not used yet
+//                    pokemonSummary.setArtwork(artwork);
+                    pokemonSummary.setNumber(dexNum);
                     pokemonSummary.setName(jsonResultsArray.get(i).getAsJsonObject().get("name").getAsString().toUpperCase());
                     pokemonSummaryList.add(pokemonSummary);
                 }
@@ -120,9 +121,10 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
         }
         catch(IOException exc)
         {
-            Toast.makeText(this.activity.getApplicationContext(),
-                    "Uh oh, something went wrong when trying to get data from the web!",
-                    Toast.LENGTH_LONG).show();
+            // TODO: This needs to be run on the UI thread. otherwise will crash the app
+//            Toast.makeText(this.activity.getApplicationContext(),
+//                    "Uh oh, something went wrong when trying to get data from the web!",
+//                    Toast.LENGTH_LONG).show();
         }
 
         // create the adapter that will bind the data and the click listener

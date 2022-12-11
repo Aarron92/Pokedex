@@ -114,8 +114,8 @@ public class PokemonDexListViewAdapter extends RecyclerView.Adapter<PokemonDexLi
         });
 
         // bind the data to the UI elements insider the holder
-        holder.imageView.setImageBitmap(pokemonSummary.getArtwork());
-        holder.numberTextView.setText(pokemonSummary.getNumber());
+//        holder.imageView.setImageBitmap(pokemonSummary.getArtwork()); // TODO: Not returned in query list so not used yet
+        holder.numberTextView.setText(context.getResources().getString(R.string.dex_list_number, pokemonSummary.getNumber()));
         holder.nameTextView.setText(pokemonSummary.getName());
     }
 
@@ -176,7 +176,7 @@ public class PokemonDexListViewAdapter extends RecyclerView.Adapter<PokemonDexLi
             this.cardView = view.findViewById(R.id.dexListPokemonEntryCardView);
 
             // find the various inner View objects from the view parameter using their IDs
-            this.imageView = view.findViewById(R.id.detailsPokemonArtworkImageView);
+            this.imageView = view.findViewById(R.id.dexListPokemonArtworkImageView);
             this.numberTextView = view.findViewById(R.id.dexListPokemonNumberTextView);
             this.nameTextView = view.findViewById(R.id.dexListPokemonNameTextView);
         }

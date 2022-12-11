@@ -20,16 +20,16 @@ public interface PokeApiController
     /**
      * The endpoint to retrieve all Pokemon - used in the main Dex view page
      *
-     * 898 gets the current total number of Pokemon but the API returns megas and other forms such
+     * 1154 gets the current total number of Pokemon but the API returns megas and other forms such
      * as dynamax by using numbers past this
      *
      * @return a JSON response with all of the Pokemon in a list format
      */
-    @GET("pokemon?limit=898&offset=0")
+    @GET("pokemon?limit=1154&offset=0")
     Call<JsonElement> getPokedexList();
 
     /**
-     * The endpoint to retrieve an individual Pokemon's  details - used on the details page for an
+     * The endpoint to retrieve an individual Pokemon's details - used on the details page for an
      * individual Pokemon entry
      *
      * @param name the name of the Pokemon whose details should be retrieved

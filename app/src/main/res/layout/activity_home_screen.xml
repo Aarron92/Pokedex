@@ -19,12 +19,24 @@
         app:srcCompat="@drawable/poke_ball_icon" />
 
     <Button
-        android:id="@+id/letsGoButton"
+        android:id="@+id/nationalDexButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/black"
-        android:text="@string/lets_go"
+        android:text="@string/national_dex"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/kantoDexButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/kanto_dex"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

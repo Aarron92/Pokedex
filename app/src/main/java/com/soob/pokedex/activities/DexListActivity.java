@@ -66,6 +66,12 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // get the specific Dex was passed in from the home screen so we know which Dex to get
+        Intent intent = getIntent();
+        String dexToGet = intent.getExtras().get(HomeScreenActivity.DEX_NAME_KEY).toString();
+
+        // TODO: Add dexToGet to the thread that does the query
+
         // query the web API for the list of Pokemon data on a separate thread
         DexListQueryThreadRunnable dexListQueryThread =
                 new DexListQueryThreadRunnable(this, this.recyclerView, this.dataAdapter);
@@ -84,7 +90,7 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
         // clicked on as an extra parameter to be able to know which Pokemon's full data needs to be
         // loaded
         Intent goToDexListIntent = new Intent(this, PokemonDetailsActivity.class);
-        goToDexListIntent.putExtra(POKEMON_NUMBER_KEY, pokemonSummary.getNumber().replace("#", ""));
+        goToDexListIntent.putExtra(POKEMON_NUMBER_KEY, pokemonSummary.getNumber());
         goToDexListIntent.putExtra(POKEMON_NAME_KEY, pokemonSummary.getName());
         startActivity(goToDexListIntent);
     }

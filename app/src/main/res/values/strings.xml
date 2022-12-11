@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Pokedex</string>
-    <string name="lets_go">Let\'s Go!</string>
+
+    <!-- Home page -->
+    <string name="national_dex">National Dex</string>
+    <string name="kanto_dex">Kanto Dex</string>
+
+    <!-- Dex list -->
+    <string name="dex_list_number"># %1$d</string>
 
     <!-- Gender symbols -->
     <string name="male_symbol">♂</string>
