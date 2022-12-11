@@ -167,6 +167,7 @@
                     android:layout_below="@id/detailsPokemonHeightValueTextView"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
                     android:text="@string/details_flavour_text_placeholder"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                     android:textColor="#000000" />
@@ -187,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@id/detailsGenderRatioSubHeader"
+                    android:layout_below="@id/detailsPokemonFlavourTextTextView"
                     android:text="@string/male_symbol"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                     android:textColor="@color/gender_ratio_boy" />
@@ -197,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_below="@id/detailsGenderRatioSubHeader"
+                    android:layout_below="@id/detailsPokemonFlavourTextTextView"
                     android:text="@string/female_symbol"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                     android:textColor="@color/gender_ratio_girl" />
@@ -208,7 +209,7 @@
                     android:id="@+id/detailsGenderRatioChart"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/detailsGenderRatioMaleSymbol" />
+                    android:layout_below="@+id/detailsGenderRatioSubHeader" />
 
             </RelativeLayout>
 
