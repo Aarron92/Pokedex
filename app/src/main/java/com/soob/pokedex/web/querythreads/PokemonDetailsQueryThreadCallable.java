@@ -21,6 +21,8 @@ import com.soob.pokedex.web.pokeapi.artwork.ArtworkApiClient;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -150,7 +152,7 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
     {
         String lowercaseName = pokemonName.toLowerCase();
 
-        // TODO: looking into improve threading here to do two calls together instead of one
+        // TODO: look into improve threading here to do two calls together instead of one
         // query the API for the details - make sure to use lower case for the Pokemon name as the API is case-sensitive
         Call<JsonElement> specificPokemonCall =
                 PokeApiClient.getInstance().getPokeApi().getSpecificPokemon(lowercaseName);
@@ -184,7 +186,7 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
             pokemon.setPrimaryType(typeArray.get(0).getAsJsonObject().get("type")
                     .getAsJsonObject().get("name").getAsString());
 
-            // secondary type - which not all Pokemon hav
+            // secondary type - which not all Pokemon have
             if (typeArray.size() > 1)
             {
                 pokemon.setSecondaryType(typeArray.get(1).getAsJsonObject().get("type")
@@ -208,10 +210,23 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
         }
         if(additionalDetailsResponse.body() != null)
         {
-            // flavour text - TODO: currently just using Gen 1 entry but will eventually update
-            JsonArray flavourTextEntries = additionalDetailsResponse.body().getAsJsonObject().get("flavor_text_entries").getAsJsonArray();
-            String flavourText = flavourTextEntries.get(0).getAsJsonObject().get("flavor_text").getAsString();
-            pokemon.setFlavourText(flavourText);
+            // flavour text
+            JsonArray flavourTextEntries =
+                    additionalDetailsResponse.body().getAsJsonObject().get("flavor_text_entries").getAsJsonArray();
+
+            String flavourText = "";
+
+            // take the flavour text entries and find the first English one
+            // TODO: currently just using Gen 1 entry but will eventually update, can try and make it swipe-able
+            for(JsonElement flavourTextEntry : flavourTextEntries)
+            {
+                if(flavourTextEntry.getAsJsonObject().get("language").getAsJsonObject().get("name").getAsString().equals("en"))
+                {
+                    flavourText = flavourTextEntry.getAsJsonObject().get("flavor_text").getAsString();
+                }
+            }
+
+            pokemon.setFlavourText(flavourText.replace("\n", "").replace("\t", ""));
 
             // gender ratio
             pokemon.setGenderRatio(additionalDetailsResponse.body().getAsJsonObject().get("gender_rate").getAsInt());

@@ -19,4 +19,11 @@
     <!-- Gender symbols -->
     <string name="male_symbol">♂</string>
     <string name="female_symbol">♀</string>
+    <string name="details_information_header">Information</string>
+    <string name="details_height_header">Height:</string>
+    <string name="details_height_placeholder">ABC</string>
+    <string name="details_weight_header">Weight:</string>
+    <string name="details_weight_placeholder">XYZ</string>
+    <string name="details_flavour_text_placeholder">FLAVOUR TEXT</string>
+    <string name="details_gender_ratio_header">Gender Ratio</string>
 </resources>
