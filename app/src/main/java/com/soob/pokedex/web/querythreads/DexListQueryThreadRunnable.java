@@ -1,9 +1,5 @@
 package com.soob.pokedex.web.querythreads;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.JsonArray;
@@ -12,14 +8,13 @@ import com.google.gson.JsonObject;
 import com.soob.pokedex.activities.DexListActivity;
 import com.soob.pokedex.adapters.PokemonDexListViewAdapter;
 import com.soob.pokedex.entities.PokemonSummary;
+import com.soob.pokedex.enums.DexEnum;
 import com.soob.pokedex.web.pokeapi.PokeApiClient;
-import com.soob.pokedex.web.pokeapi.artwork.ArtworkApiClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -45,20 +40,27 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
     private PokemonDexListViewAdapter dataAdapter;
 
     /**
+     * Enum denoting the specific Pokedex we want to query for (National, Kanto, Johto etc)
+     */
+    private DexEnum dexToGet;
+
+    /**
      * Constructor
      *
      * @param activity activity that this is being called from
      * @param recyclerView teh recyclerview making up the UI layout
      * @param dataAdapter the data adapter that binds data to the UI
+     * @param dexToGet the Pokedex to get the data for (National, Kanto, Johto etc)
      */
     public DexListQueryThreadRunnable(final DexListActivity activity, final RecyclerView recyclerView,
-                                      final PokemonDexListViewAdapter dataAdapter)
+                                      final PokemonDexListViewAdapter dataAdapter, DexEnum dexToGet)
     {
         super(activity);
 
         this.activity = activity;
         this.recyclerView = recyclerView;
         this.dataAdapter = dataAdapter;
+        this.dexToGet = dexToGet;
     }
 
     /**
@@ -74,7 +76,7 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
      */
     public void doInBackground()
     {
-        getFullDexList();
+        getPokedexList();
     }
 
     /**
@@ -87,12 +89,12 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
     }
 
     /**
-     *
-     * @return
+     * Queries the relevant Dex list to get all of the Pokemon relevant to a specific regional Dex
+     * (or the National one)
      */
-    private void getFullDexList()
+    private void getPokedexList()
     {
-        Call<JsonElement> pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList();
+        Call<JsonElement> pokedexQueryCall = callRelevantDex();
 
         List<PokemonSummary> pokemonSummaryList = new ArrayList<>();
 
@@ -106,7 +108,8 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
                 JsonArray jsonResultsArray = ((JsonObject) pokedexQueryResponse.body()).get("results").getAsJsonArray();
 
                 // loop through all of the entries in the JSON and create a PokemonSummary object for each one
-                for (int i = 0; i < jsonResultsArray.size(); i++)
+                int offset = this.dexToGet.getOffset();
+                for (int i = offset; i < (jsonResultsArray.size() + offset); i++)
                 {
                     int dexNum = i + 1;
 
@@ -114,7 +117,7 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
                     // TODO: Artwork is not returned in list query so is not used yet
 //                    pokemonSummary.setArtwork(artwork);
                     pokemonSummary.setNumber(dexNum);
-                    pokemonSummary.setName(jsonResultsArray.get(i).getAsJsonObject().get("name").getAsString().toUpperCase());
+                    pokemonSummary.setName(jsonResultsArray.get(i - offset).getAsJsonObject().get("name").getAsString().toUpperCase());
                     pokemonSummaryList.add(pokemonSummary);
                 }
             }
@@ -130,5 +133,27 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
         // create the adapter that will bind the data and the click listener
         this.dataAdapter =
                 new PokemonDexListViewAdapter(this.activity, pokemonSummaryList, this.activity);
+    }
+
+    private Call<JsonElement> callRelevantDex(){
+
+        Call<JsonElement> pokedexQueryCall;
+
+        switch(this.dexToGet) {
+            case NATIONAL:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_National();
+                break;
+            case KANTO:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Kanto();
+                break;
+            case JOHTO:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Johto();
+                break;
+            default:
+                // TODO: Add exception, but for now just return all if something went wrong
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_National();
+        }
+
+        return pokedexQueryCall;
     }
 }

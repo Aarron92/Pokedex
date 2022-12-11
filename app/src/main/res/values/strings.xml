@@ -4,6 +4,7 @@
     <!-- Home page -->
     <string name="national_dex">National Dex</string>
     <string name="kanto_dex">Kanto Dex</string>
+    <string name="johto_dex">Johto Dex</string>
 
     <!-- Dex list -->
     <string name="dex_list_number"># %1$d</string>
