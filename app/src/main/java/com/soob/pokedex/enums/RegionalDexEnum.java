@@ -3,7 +3,7 @@ package com.soob.pokedex.enums;
 /**
  * Enum for the different Pokedexes
  */
-public enum DexEnum
+public enum RegionalDexEnum
 {
     NATIONAL(0),
     KANTO(0),
@@ -23,7 +23,7 @@ public enum DexEnum
      */
     private int offset;
 
-    DexEnum(int offset)
+    RegionalDexEnum(int offset)
     {
         this.offset = offset;
     }

@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import com.soob.pokedex.activities.DexListActivity;
 import com.soob.pokedex.adapters.PokemonDexListViewAdapter;
 import com.soob.pokedex.entities.PokemonSummary;
-import com.soob.pokedex.enums.DexEnum;
+import com.soob.pokedex.enums.RegionalDexEnum;
 import com.soob.pokedex.web.pokeapi.PokeApiClient;
 
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
     /**
      * Enum denoting the specific Pokedex we want to query for (National, Kanto, Johto etc)
      */
-    private DexEnum dexToGet;
+    private RegionalDexEnum dexToGet;
 
     /**
      * Constructor
@@ -53,7 +53,7 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
      * @param dexToGet the Pokedex to get the data for (National, Kanto, Johto etc)
      */
     public DexListQueryThreadRunnable(final DexListActivity activity, final RecyclerView recyclerView,
-                                      final PokemonDexListViewAdapter dataAdapter, DexEnum dexToGet)
+                                      final PokemonDexListViewAdapter dataAdapter, RegionalDexEnum dexToGet)
     {
         super(activity);
 

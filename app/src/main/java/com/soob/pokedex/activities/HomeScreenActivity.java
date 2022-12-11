@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.soob.pokedex.R;
-import com.soob.pokedex.enums.DexEnum;
+import com.soob.pokedex.enums.RegionalDexEnum;
 
 /**
  * TODO: Probably need to look into using Fragments and not Activities for logic where possible
@@ -38,26 +38,26 @@ public class HomeScreenActivity extends AppCompatActivity
         setContentView(R.layout.activity_home_screen);
 
         // add the click listeners to the button for the different Pokedex buttons
-        addClickListenerToDexButton(findViewById(R.id.nationalDexButton), DexEnum.NATIONAL);
-        addClickListenerToDexButton(findViewById(R.id.kantoDexButton), DexEnum.KANTO);
-        addClickListenerToDexButton(findViewById(R.id.johtoDexButton), DexEnum.JOHTO);
+        addClickListenerToDexButton(findViewById(R.id.nationalDexButton), RegionalDexEnum.NATIONAL);
+        addClickListenerToDexButton(findViewById(R.id.kantoDexButton), RegionalDexEnum.KANTO);
+        addClickListenerToDexButton(findViewById(R.id.johtoDexButton), RegionalDexEnum.JOHTO);
     }
 
     /**
      * Set the click listener for each of the Dex buttons along with the specified enum
      *
      * @param button - button to add the listener to
-     * @param dexEnum - the correspodning enum
+     * @param regionalDexEnum - the correspodning enum
      */
-    private void addClickListenerToDexButton(Button button, DexEnum dexEnum){
+    private void addClickListenerToDexButton(Button button, RegionalDexEnum regionalDexEnum){
         // add the click listener to the button for the specified dex
-        button.setOnClickListener(view -> openDexList(dexEnum));
+        button.setOnClickListener(view -> openDexList(regionalDexEnum));
     }
 
     /**
      * When the user presses the button on the home page to open the Dex list
      */
-    public void openDexList(DexEnum dexEnum)
+    public void openDexList(RegionalDexEnum regionalDexEnum)
     {
         /*
          * An Intent is an object that provides runtime binding between separate components e.g. two
@@ -67,7 +67,7 @@ public class HomeScreenActivity extends AppCompatActivity
          * system will deliver the Intent, in this case the next Activity to start
          */
         Intent goToDexListIntent = new Intent(this, DexListActivity.class);
-        goToDexListIntent.putExtra(DEX_NAME_KEY, dexEnum);
+        goToDexListIntent.putExtra(DEX_NAME_KEY, regionalDexEnum);
 
         // start the new Activity i.e. switch to the other UI component
         startActivity(goToDexListIntent);

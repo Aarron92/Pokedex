@@ -7,15 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.soob.pokedex.enums.DexEnum;
+import com.soob.pokedex.enums.RegionalDexEnum;
 import com.soob.pokedex.inputlisteners.DexClickListener;
 import com.soob.pokedex.adapters.PokemonDexListViewAdapter;
 import com.soob.pokedex.R;
 import com.soob.pokedex.entities.PokemonSummary;
 import com.soob.pokedex.web.querythreads.DexListQueryThreadRunnable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Activity class that shows the Dex as a list
@@ -69,7 +66,7 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
 
         // get the specific Dex was passed in from the home screen so we know which Dex to get
         Intent intent = getIntent();
-        DexEnum dexToGet = (DexEnum) intent.getExtras().get(HomeScreenActivity.DEX_NAME_KEY);
+        RegionalDexEnum dexToGet = (RegionalDexEnum) intent.getExtras().get(HomeScreenActivity.DEX_NAME_KEY);
         // TODO: Going back to list from individual crashes due to Enum not being properly set on return
 
         // query the web API for the list of Pokemon data on a separate thread

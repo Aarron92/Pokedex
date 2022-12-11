@@ -289,7 +289,7 @@ public class PokemonDetailsActivity extends AppCompatActivity
     /**
      * Create Bar chart for the Base Stats
      *
-     * TODO: Probably worth pulling this into a generic bar chart class for base stats and gender ratio
+     * TODO: Probably worth pulling this into a separate, generic bar chart class for base stats and gender ratio
      */
     private void setBaseStatsDataChart(final Pokemon pokemon)
     {
