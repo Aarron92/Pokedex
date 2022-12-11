@@ -7,12 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.soob.pokedex.DexListSingleton;
 import com.soob.pokedex.enums.RegionalDexEnum;
 import com.soob.pokedex.inputlisteners.DexClickListener;
 import com.soob.pokedex.adapters.PokemonDexListViewAdapter;
 import com.soob.pokedex.R;
 import com.soob.pokedex.entities.PokemonSummary;
 import com.soob.pokedex.web.querythreads.DexListQueryThreadRunnable;
+
+import java.util.Objects;
 
 /**
  * Activity class that shows the Dex as a list
@@ -64,15 +67,18 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         // get the specific Dex was passed in from the home screen so we know which Dex to get
-        Intent intent = getIntent();
-        RegionalDexEnum dexToGet = (RegionalDexEnum) intent.getExtras().get(HomeScreenActivity.DEX_NAME_KEY);
-        // TODO: Going back to list from individual crashes due to Enum not being properly set on return
+//        Intent intent = getIntent();
+//        RegionalDexEnum dexToGet = (RegionalDexEnum) intent.getExtras().get(HomeScreenActivity.DEX_NAME_KEY);
+        RegionalDexEnum dexToGet = DexListSingleton.getInstance().getRegionalDex();
 
         // query the web API for the list of Pokemon data on a separate thread
         DexListQueryThreadRunnable dexListQueryThread =
                 new DexListQueryThreadRunnable(this, this.recyclerView, this.dataAdapter, dexToGet);
         dexListQueryThread.execute();
+
+        this.recyclerView.scrollToPosition(DexListSingleton.getInstance().getScrollPosition());
     }
 
     /**
@@ -83,6 +89,11 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
     @Override
     public void onItemClick(final PokemonSummary pokemonSummary)
     {
+        // remember the scroll position for when we come back
+        int currentScrollPosition = ((LinearLayoutManager) Objects.requireNonNull(
+                this.recyclerView.getLayoutManager())).findFirstCompletelyVisibleItemPosition();
+        DexListSingleton.getInstance().setScrollPosition(currentScrollPosition);
+
         // go to the full details screen of the given Pokemon with the name of the Pokemon that was
         // clicked on as an extra parameter to be able to know which Pokemon's full data needs to be
         // loaded

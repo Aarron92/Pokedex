@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.soob.pokedex.DexListSingleton;
 import com.soob.pokedex.R;
 import com.soob.pokedex.enums.RegionalDexEnum;
 
@@ -16,7 +17,7 @@ import com.soob.pokedex.enums.RegionalDexEnum;
  */
 public class HomeScreenActivity extends AppCompatActivity
 {
-    public static final String DEX_NAME_KEY = "DEX_NAME_KEY";
+//    public static final String DEX_NAME_KEY = "DEX_NAME_KEY";
 
     /**
      * When the activity is created this method will be called to do everything needed at the start
@@ -59,17 +60,23 @@ public class HomeScreenActivity extends AppCompatActivity
      */
     public void openDexList(RegionalDexEnum regionalDexEnum)
     {
-        /*
-         * An Intent is an object that provides runtime binding between separate components e.g. two
-         * activities. The Intent represents the app's intent to do something. The constructor takes
-         * two parameters. First a Context which is use to refer to this Activity (which is a subclass
-         * of Activity. The second parameter is a Class parameter of the app component to which the
-         * system will deliver the Intent, in this case the next Activity to start
-         */
-        Intent goToDexListIntent = new Intent(this, DexListActivity.class);
-        goToDexListIntent.putExtra(DEX_NAME_KEY, regionalDexEnum);
+//        /*
+//         * An Intent is an object that provides runtime binding between separate components e.g. two
+//         * activities. The Intent represents the app's intent to do something. The constructor takes
+//         * two parameters. First a Context which is use to refer to this Activity (which is a subclass
+//         * of Activity. The second parameter is a Class parameter of the app component to which the
+//         * system will deliver the Intent, in this case the next Activity to start
+//         */
+//        Intent goToDexListIntent = new Intent(this, DexListActivity.class);
+//        goToDexListIntent.putExtra(DEX_NAME_KEY, regionalDexEnum);
+//
+//        // start the new Activity i.e. switch to the other UI component
+//        startActivity(goToDexListIntent);
 
-        // start the new Activity i.e. switch to the other UI component
+
+        DexListSingleton.getInstance().setRegionalDex(regionalDexEnum);
+        DexListSingleton.getInstance().setScrollPosition(0);
+        Intent goToDexListIntent = new Intent(this, DexListActivity.class);
         startActivity(goToDexListIntent);
     }
 }

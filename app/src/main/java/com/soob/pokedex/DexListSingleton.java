@@ -14,14 +14,14 @@ public final class DexListSingleton {
     private static DexListSingleton INSTANCE;
 
     /**
-     * The regional dex being used
+     * The regional dex being used - starts with a default state of the National Dex
      */
-    private RegionalDexEnum regionalDex;
+    private RegionalDexEnum regionalDex = RegionalDexEnum.NATIONAL;
 
     /**
-     * The scroll position of the dex list to return to
+     * The scroll position of the dex list to return to - starts with a default position of 0
      */
-    private int scrollPosition;
+    private int scrollPosition = 0;
 
     private DexListSingleton() {
     }
