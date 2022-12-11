@@ -27,29 +27,39 @@ public interface PokeApiController
     @GET("pokemon?limit=1154&offset=0")
     Call<JsonElement> getPokedexList_National();
 
-    /**
-     * The endpoint to retrieve all Pokemon in the Kanto Dex
-     *
-     * Returns only the first 151 Pokemon, i.e the Kanto Dex
-     *
-     * @return a JSON response with all of the Kanto Pokemon in a list format
-     *
-     * TODO: Once others are implemented, will need to come back and check megas, other forms etc
-     */
+    /* Endponts for the other Dex lists */
+    // TODO: Once others are implemented, will need to come back and check megas, other forms etc
     @GET("pokemon?limit=151&offset=0")
     Call<JsonElement> getPokedexList_Kanto();
 
-    /**
-     * The endpoint to retrieve all Pokemon in the Kanto Dex
-     *
-     * Returns only the Pokemon that appear in the Johto specific Dex
-     *
-     * @return a JSON response with all of the Johto Pokemon in a list format
-     *
-     * TODO: Once others are implemented, will need to come back and check megas, other forms etc
-     */
     @GET("pokemon?limit=100&offset=151")
     Call<JsonElement> getPokedexList_Johto();
+
+    @GET("pokemon?limit=135&offset=251")
+    Call<JsonElement> getPokedexList_Hoenn();
+
+    @GET("pokemon?limit=108&offset=386")
+    Call<JsonElement> getPokedexList_Sinnoh();
+
+    @GET("pokemon?limit=155&offset=494")
+    Call<JsonElement> getPokedexList_Unova();
+
+    @GET("pokemon?limit=72&offset=649")
+    Call<JsonElement> getPokedexList_Kalos();
+
+    @GET("pokemon?limit=88&offset=721")
+    Call<JsonElement> getPokedexList_Alola();
+
+    @GET("pokemon?limit=96&offset=809")
+    Call<JsonElement> getPokedexList_Galar();
+
+    // TODO: PokeApi not update with this yet
+//    @GET("pokemon?limit=107&offset=904")
+//    Call<JsonElement> getPokedexList_Paldea();
+
+
+
+
 
     /**
      * The endpoint to retrieve an individual Pokemon's details - used on the details page for an

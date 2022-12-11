@@ -149,6 +149,28 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
             case JOHTO:
                 pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Johto();
                 break;
+            case HOENN:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Hoenn();
+                break;
+            case SINNOH:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Sinnoh();
+                break;
+            case UNOVA:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Unova();
+                break;
+            case KALOS:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Kalos();
+                break;
+            case ALOLA:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Alola();
+                break;
+            case GALAR:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Galar();
+                break;
+                // TODO: PokeApi not updated with this yet
+//            case PALDEA:
+//                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Paldea();
+//                break;
             default:
                 // TODO: Add exception, but for now just return all if something went wrong
                 pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_National();

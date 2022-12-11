@@ -17,8 +17,6 @@ import com.soob.pokedex.enums.RegionalDexEnum;
  */
 public class HomeScreenActivity extends AppCompatActivity
 {
-//    public static final String DEX_NAME_KEY = "DEX_NAME_KEY";
-
     /**
      * When the activity is created this method will be called to do everything needed at the start
      *
@@ -42,13 +40,20 @@ public class HomeScreenActivity extends AppCompatActivity
         addClickListenerToDexButton(findViewById(R.id.nationalDexButton), RegionalDexEnum.NATIONAL);
         addClickListenerToDexButton(findViewById(R.id.kantoDexButton), RegionalDexEnum.KANTO);
         addClickListenerToDexButton(findViewById(R.id.johtoDexButton), RegionalDexEnum.JOHTO);
+        addClickListenerToDexButton(findViewById(R.id.hoennDexButton), RegionalDexEnum.HOENN);
+        addClickListenerToDexButton(findViewById(R.id.sinnohDexButton), RegionalDexEnum.SINNOH);
+        addClickListenerToDexButton(findViewById(R.id.unovaDexButton), RegionalDexEnum.UNOVA);
+        addClickListenerToDexButton(findViewById(R.id.kalosDexButton), RegionalDexEnum.KALOS);
+        addClickListenerToDexButton(findViewById(R.id.alolaDexButton), RegionalDexEnum.ALOLA);
+        addClickListenerToDexButton(findViewById(R.id.galarDexButton), RegionalDexEnum.GALAR);
+        addClickListenerToDexButton(findViewById(R.id.paldeaDexButton), RegionalDexEnum.PALDEA);
     }
 
     /**
      * Set the click listener for each of the Dex buttons along with the specified enum
      *
      * @param button - button to add the listener to
-     * @param regionalDexEnum - the correspodning enum
+     * @param regionalDexEnum - the corresponding enum
      */
     private void addClickListenerToDexButton(Button button, RegionalDexEnum regionalDexEnum){
         // add the click listener to the button for the specified dex
@@ -60,22 +65,11 @@ public class HomeScreenActivity extends AppCompatActivity
      */
     public void openDexList(RegionalDexEnum regionalDexEnum)
     {
-//        /*
-//         * An Intent is an object that provides runtime binding between separate components e.g. two
-//         * activities. The Intent represents the app's intent to do something. The constructor takes
-//         * two parameters. First a Context which is use to refer to this Activity (which is a subclass
-//         * of Activity. The second parameter is a Class parameter of the app component to which the
-//         * system will deliver the Intent, in this case the next Activity to start
-//         */
-//        Intent goToDexListIntent = new Intent(this, DexListActivity.class);
-//        goToDexListIntent.putExtra(DEX_NAME_KEY, regionalDexEnum);
-//
-//        // start the new Activity i.e. switch to the other UI component
-//        startActivity(goToDexListIntent);
-
-
+        // rather than use extra data on the intent to keep track of the Dex - use the dedicated
+        // singleton class which tracks the chosen Dex and the scroll position of the list
         DexListSingleton.getInstance().setRegionalDex(regionalDexEnum);
         DexListSingleton.getInstance().setScrollPosition(0);
+
         Intent goToDexListIntent = new Intent(this, DexListActivity.class);
         startActivity(goToDexListIntent);
     }

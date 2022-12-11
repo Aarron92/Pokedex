@@ -69,8 +69,6 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
 
 
         // get the specific Dex was passed in from the home screen so we know which Dex to get
-//        Intent intent = getIntent();
-//        RegionalDexEnum dexToGet = (RegionalDexEnum) intent.getExtras().get(HomeScreenActivity.DEX_NAME_KEY);
         RegionalDexEnum dexToGet = DexListSingleton.getInstance().getRegionalDex();
 
         // query the web API for the list of Pokemon data on a separate thread
@@ -93,6 +91,14 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
         int currentScrollPosition = ((LinearLayoutManager) Objects.requireNonNull(
                 this.recyclerView.getLayoutManager())).findFirstCompletelyVisibleItemPosition();
         DexListSingleton.getInstance().setScrollPosition(currentScrollPosition);
+
+        /*
+         * An Intent is an object that provides runtime binding between separate components e.g. two
+         * activities. The Intent represents the app's intent to do something. The constructor takes
+         * two parameters. First a Context which is use to refer to this Activity (which is a subclass
+         * of Activity. The second parameter is a Class parameter of the app component to which the
+         * system will deliver the Intent, in this case the next Activity to start
+         */
 
         // go to the full details screen of the given Pokemon with the name of the Pokemon that was
         // clicked on as an extra parameter to be able to know which Pokemon's full data needs to be

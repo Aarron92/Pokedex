@@ -8,14 +8,13 @@ public enum RegionalDexEnum
     NATIONAL(0),
     KANTO(0),
     JOHTO(151),
-    HOENN(0),
-    SINNOH(0),
-    UNOVA(0),
-    KALOS(0),
-    ALOLA(0),
-    GALAR(0),
-    PALDEA(0);
-    // TODO: Other offset not needed yet so not added
+    HOENN(251),
+    SINNOH(386),
+    UNOVA(494),
+    KALOS(649),
+    ALOLA(721),
+    GALAR(809),
+    PALDEA(904);
 
     /**
      * Offset used to display the correct number next to Pokemon in other Dex lists e.g. Chikorita
