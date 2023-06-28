@@ -20,9 +20,8 @@ import com.soob.pokedex.web.pokeapi.artwork.ArtworkApiClient;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -152,19 +151,16 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
     {
         String lowercaseName = pokemonName.toLowerCase();
 
-        // TODO: look into improve threading here to do two calls together instead of one
+        // TODO: look into improve threading here to do multiple calls together instead of one at time
         // query the API for the details - make sure to use lower case for the Pokemon name as the API is case-sensitive
         Call<JsonElement> specificPokemonCall =
                 PokeApiClient.getInstance().getPokeApi().getSpecificPokemon(lowercaseName);
         Response<JsonElement> specificDetailsResponse = specificPokemonCall.execute();
 
         // query the API for the additional details of the species - such as flavour text, gender etc
-        Call<JsonElement> additionalDetailsCall =
+        Call<JsonElement> speciesDetailsCall =
                 PokeApiClient.getInstance().getPokeApi().getSpeciesDetails(lowercaseName);
-        Response<JsonElement> additionalDetailsResponse = additionalDetailsCall.execute();
-
-        // query the API for the evolution chain details of the specific Pokemon
-        Call<JsonElement> evolutionsDetailsResponse;
+        Response<JsonElement> speciesDetailsResponse = speciesDetailsCall.execute();
 
         Pokemon pokemon = new Pokemon();
 
@@ -208,11 +204,11 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
             // base stats
             pokemon.setBaseStats(getBaseStats(responseBody));
         }
-        if(additionalDetailsResponse.body() != null)
+        if(speciesDetailsResponse.body() != null)
         {
             // flavour text
             JsonArray flavourTextEntries =
-                    additionalDetailsResponse.body().getAsJsonObject().get("flavor_text_entries").getAsJsonArray();
+                    speciesDetailsResponse.body().getAsJsonObject().get("flavor_text_entries").getAsJsonArray();
 
             String flavourText = "";
 
@@ -229,14 +225,33 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
             pokemon.setFlavourText(flavourText.replace("\n", "").replace("\t", ""));
 
             // gender ratio
-            pokemon.setGenderRatio(additionalDetailsResponse.body().getAsJsonObject().get("gender_rate").getAsInt());
-        }
-//        if(evolutionsDetailsResponse.body() != null)
-//        {
-//            // evolution chain
-//            pokemon.setEvolutions();
-//        }
+            pokemon.setGenderRatio(speciesDetailsResponse.body().getAsJsonObject().get("gender_rate").getAsInt());
 
+            // query the API for the evolution chain details of the specific Pokemon - the number of
+            // the evolution chain is available from the species data
+            // TODO: CAN PROBABLY JUST HAVE A GENERAL CALL TO GET THE EVO CHAIN INSTEAD OF PULLING THE NUMBER OUT
+            String evolutionChainNumber = speciesDetailsResponse.body()
+                    .getAsJsonObject().get("evolution_chain")
+                    .getAsJsonObject().get("url").getAsString();
+
+            evolutionChainNumber = evolutionChainNumber
+                    .replace("https://pokeapi.co/api/v2/evolution-chain", "")
+                    .replace("/", "");
+
+            Call<JsonElement> evolutionsDetailsCall =
+                    PokeApiClient.getInstance().getPokeApi().getEvolutionChain(evolutionChainNumber);
+            Response<JsonElement> evolutionDetailsResponse = evolutionsDetailsCall.execute();
+
+            if(evolutionDetailsResponse.body() != null)
+            {
+                LinkedList<String> evolutionChain = new LinkedList<>();
+                evolutionChain = getPokemonInEvolutionChain(evolutionDetailsResponse.body().getAsJsonObject().get("chain"), evolutionChain);
+                System.out.println(evolutionChain);
+                // evolution chain
+//               pokemon.setEvolutionChain(evolutionDetailsResponse);
+            }
+
+        }
         return pokemon;
     }
 
@@ -295,5 +310,33 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
         }
 
         return baseStats;
+    }
+
+    /**
+     * Recursively go the evolution chain to get the Pokemon in it
+     *
+     * Do this recursively due to the recursive structure that PokeAPI uses where by step in the
+     * evolution contains details of the next step via a nested JSON structure
+     *
+     * TODO: THIS WILL ONLY WORK WITH STANDARD EVO CHAINS - POKEMON LIKE EEVEE WON'T WORK YET
+     */
+    private LinkedList<String> getPokemonInEvolutionChain(JsonElement evolutionChainJson, LinkedList<String> mapOfEvolutions)
+    {
+        JsonObject currentJsonLayer = evolutionChainJson.getAsJsonObject();
+
+        String pokemon = currentJsonLayer.getAsJsonObject().get("species").getAsJsonObject().get("name").getAsString();
+        mapOfEvolutions.add(pokemon);
+
+        JsonArray evolvesToArray = currentJsonLayer.get("evolves_to").getAsJsonArray();
+        if(evolvesToArray.size() == 1)
+        {
+            getPokemonInEvolutionChain(evolvesToArray.get(0), mapOfEvolutions);
+        }
+        else if(evolvesToArray.size() > 1)
+        {
+            // TODO: NON-STANDARD CHAINS (LIKE EEVEE) WILL GO IN HERE
+        }
+
+        return mapOfEvolutions;
     }
 }

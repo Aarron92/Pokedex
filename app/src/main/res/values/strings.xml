@@ -3,15 +3,15 @@
 
     <!-- Home page -->
     <string name="national_dex">National Dex</string>
-    <string name="kanto_dex">Kanto Dex</string>
-    <string name="johto_dex">Johto Dex</string>
-    <string name="hoenn_dex">Hoenn Dex</string>
-    <string name="sinnoh_dex">Sinnoh Dex</string>
-    <string name="unova_dex">Unova Dex</string>
-    <string name="kalos_dex">Kalos Dex</string>
-    <string name="alola_dex">Alola Dex</string>
-    <string name="galar_dex">Galar Dex</string>
-    <string name="paldea_dex">Paldea Dex</string>
+    <string name="kanto_dex">Kanto</string>
+    <string name="johto_dex">Johto</string>
+    <string name="hoenn_dex">Hoenn</string>
+    <string name="sinnoh_dex">Sinnoh</string>
+    <string name="unova_dex">Unova</string>
+    <string name="kalos_dex">Kalos</string>
+    <string name="alola_dex">Alola</string>
+    <string name="galar_dex">Galar</string>
+    <string name="paldea_dex">Paldea</string>
 
     <!-- Dex list -->
     <string name="dex_list_number"># %1$d</string>

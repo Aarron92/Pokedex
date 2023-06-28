@@ -27,12 +27,12 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
     /**
      * The Activity where this thread runner was instantiated from - e.g. DexListActivity
      */
-    private DexListActivity activity;
+    private final DexListActivity activity;
 
     /**
      * RecyclerView in which the Pokemon data is displayed on the UI
      */
-    private RecyclerView recyclerView;
+    private final RecyclerView recyclerView;
 
     /**
      * The adapter used to bind the UI and the data
@@ -42,7 +42,7 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
     /**
      * Enum denoting the specific Pokedex we want to query for (National, Kanto, Johto etc)
      */
-    private RegionalDexEnum dexToGet;
+    private final RegionalDexEnum dexToGet;
 
     /**
      * Constructor
@@ -167,10 +167,9 @@ public class DexListQueryThreadRunnable extends ApiQueryThreadRunnable
             case GALAR:
                 pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Galar();
                 break;
-                // TODO: PokeApi not updated with this yet
-//            case PALDEA:
-//                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Paldea();
-//                break;
+            case PALDEA:
+                pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_Paldea();
+                break;
             default:
                 // TODO: Add exception, but for now just return all if something went wrong
                 pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_National();

@@ -28,6 +28,7 @@ public interface PokeApiController
     Call<JsonElement> getPokedexList_National();
 
     /* Endponts for the other Dex lists */
+
     // TODO: Once others are implemented, will need to come back and check megas, other forms etc
     @GET("pokemon?limit=151&offset=0")
     Call<JsonElement> getPokedexList_Kanto();
@@ -53,13 +54,8 @@ public interface PokeApiController
     @GET("pokemon?limit=96&offset=809")
     Call<JsonElement> getPokedexList_Galar();
 
-    // TODO: PokeApi not update with this yet
-//    @GET("pokemon?limit=107&offset=904")
-//    Call<JsonElement> getPokedexList_Paldea();
-
-
-
-
+    @GET("pokemon?limit=107&offset=904")
+    Call<JsonElement> getPokedexList_Paldea();
 
     /**
      * The endpoint to retrieve an individual Pokemon's details - used on the details page for an
@@ -76,8 +72,18 @@ public interface PokeApiController
      * gender ration, evolution chain etc
      *
      * @param name the name of the Pokemon whose details should be retrieved
-     * @return a JSON response containing all of the details for the specified Pokemon
+     * @return a JSON response containing all of the details for the specified species
      */
     @GET("pokemon-species/{name}/")
     Call<JsonElement> getSpeciesDetails(@Path(value = "name", encoded = true) String name);
+
+    /**
+     * The endpoint to retrieve the evolution chain of a specific Pokemon
+     *
+     * @param evolutionNumber the evolution number is not the same as the dex number, each family of
+     *                        evolutions increases the count by 1
+     * @return a JSON response containing all of the details for the specified evolution chain
+     */
+    @GET("evolution-chain/{evolutionNumber}/")
+    Call<JsonElement> getEvolutionChain(@Path(value = "evolutionNumber", encoded = true) String evolutionNumber);
 }

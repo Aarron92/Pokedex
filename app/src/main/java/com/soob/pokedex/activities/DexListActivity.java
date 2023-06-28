@@ -67,7 +67,6 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         // get the specific Dex was passed in from the home screen so we know which Dex to get
         RegionalDexEnum dexToGet = DexListSingleton.getInstance().getRegionalDex();
 
