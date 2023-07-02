@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class AbilitiesService
 {
+    // TODO: THESE SERVICES SHOULD PROBABLY JUST PULL OUT THE RELEVANT BIT AND RETURN IT, THEN EVERYTHING CAN BE SET FROM THE MAIN SERVICE
     public static void setPokemonAbilities(Pokemon pokemon, JsonObject pokemonDetailsJson)
     {
         JsonArray abilitiesArray = pokemonDetailsJson.getAsJsonArray("abilities");

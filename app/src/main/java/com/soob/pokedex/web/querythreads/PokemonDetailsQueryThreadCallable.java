@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.soob.pokedex.activities.PokemonDetailsActivity;
 import com.soob.pokedex.adapters.PokemonDetailsAbilitiesAdapter;
+import com.soob.pokedex.adapters.PokemonDexListViewAdapter;
 import com.soob.pokedex.entities.Pokemon;
 import com.soob.pokedex.inputlisteners.service.details.PokemonService;
 
@@ -19,7 +20,7 @@ import java.io.IOException;
  *
  * TODO: STILL NEED TO DO THE EXTRA TIDY UP BITS HERE
  */
-public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Pokemon, String>
+public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Pokemon>
 {
     /**
      * The Activity where this thread runner was instantiated from - e.g. PokemonDetailsActivity
@@ -38,17 +39,14 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
 
     /**
      * Constructor
-     *
-     * @param activity the activity that this was called from
      */
-    public PokemonDetailsQueryThreadCallable(final PokemonDetailsActivity activity, final RecyclerView recyclerView,
-                                             final PokemonDetailsAbilitiesAdapter dataAdapter)
+    public PokemonDetailsQueryThreadCallable(final PokemonDetailsActivity activity,
+                                             final RecyclerView recyclerView)
     {
         super(activity);
 
         this.activity = activity;
         this.recyclerView = recyclerView;
-        this.dataAdapter = dataAdapter;
     }
 
     /**
@@ -62,15 +60,18 @@ public class PokemonDetailsQueryThreadCallable extends ApiQueryThreadCallable<Po
     /**
      * What to do during the main background task when returned data is expected - implemented as
      * needed by calling activity
-     *
-     * @param parameters pokemon number and name to get the details for
      */
     @Override
-    public Pokemon doInBackground(String... parameters) throws IOException
+    public Pokemon doInBackground(Pokemon pokemon)
     {
-        // TODO: THIS IS DOING ALL OF THE CALLS FOR THE DIFFERENT DETAILS ON THE SAME THREAD,
-        //  MIGHT BE BETTER TO SPLIT THEM OUT AND DO THEM ALL SEPARATELY?
-        return PokemonService.getPokemonWithAllDetails(parameters);
+        // get the Pokemon with all of it's details
+        PokemonService.getPokemonWithAllDetails(pokemon);
+
+        // create the adapter that will bind the data for the dynamic abilities display
+        // TODO: LOOK AT IF THIS IS EVEN NEEDED LIKE THIS
+        this.dataAdapter = new PokemonDetailsAbilitiesAdapter(this.activity, pokemon.getAbilities());
+
+        return pokemon;
     }
 
     /**

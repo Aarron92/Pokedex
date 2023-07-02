@@ -19,6 +19,9 @@
     <!-- Gender symbols -->
     <string name="male_symbol">♂</string>
     <string name="female_symbol">♀</string>
+
+    <!-- Details -->
+    <string name="details_pokemon_number"># %s</string>
     <string name="details_information_header">Information</string>
     <string name="details_height_header">Height:</string>
     <string name="details_height_placeholder">ABC</string>

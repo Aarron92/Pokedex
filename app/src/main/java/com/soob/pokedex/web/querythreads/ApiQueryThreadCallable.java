@@ -13,7 +13,7 @@ import java.util.concurrent.Future;
  *
  * Uses Callable so that the running thread can return data
  */
-public abstract class ApiQueryThreadCallable<R, P>
+public abstract class ApiQueryThreadCallable<R>
 {
     /**
      * Activity to be passed to the task
@@ -37,7 +37,7 @@ public abstract class ApiQueryThreadCallable<R, P>
      * @return data returned by the thread
      * @throws Exception thrown is something goes
      */
-    public R execute(P... parameter) throws Exception
+    public R execute(R parameter) throws Exception
     {
         return startBackground(parameter);
     }
@@ -51,7 +51,7 @@ public abstract class ApiQueryThreadCallable<R, P>
      * @return generic return type to return whatever is needed
      * @throws Exception thrown is something goes wrong with the Callable call
      */
-    private R startBackground(P... parameters) throws Exception
+    private R startBackground(R parameters) throws Exception
     {
         // need to run on the ExecutorService to run the callable on a new thread as you cannot run
         // a network call on the main thread
@@ -92,7 +92,7 @@ public abstract class ApiQueryThreadCallable<R, P>
      *
      * @param parameters varargs parameter to be used in determining return value
      */
-    public abstract R doInBackground(P... parameters) throws IOException;
+    public abstract R doInBackground(R parameters) throws IOException;
 
     /**
      * What to do after running the main background task - implemented as needed by calling activity
