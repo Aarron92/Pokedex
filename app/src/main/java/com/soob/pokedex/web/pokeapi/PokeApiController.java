@@ -24,7 +24,7 @@ public interface PokeApiController
      *
      * @return a JSON response with all of the Pokemon in a list format
      */
-    @GET("pokemon?limit=1154&offset=0")
+    @GET("pokemon?limit=1010&offset=0")
     Call<JsonElement> getPokedexList_National();
 
     /* Endponts for the other Dex lists */
@@ -54,7 +54,7 @@ public interface PokeApiController
     @GET("pokemon?limit=96&offset=809")
     Call<JsonElement> getPokedexList_Galar();
 
-    @GET("pokemon?limit=107&offset=904")
+    @GET("pokemon?limit=105&offset=905")
     Call<JsonElement> getPokedexList_Paldea();
 
     /**

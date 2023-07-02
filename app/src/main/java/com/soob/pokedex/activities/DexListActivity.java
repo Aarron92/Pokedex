@@ -13,7 +13,7 @@ import com.soob.pokedex.inputlisteners.DexClickListener;
 import com.soob.pokedex.adapters.PokemonDexListViewAdapter;
 import com.soob.pokedex.R;
 import com.soob.pokedex.entities.PokemonSummary;
-import com.soob.pokedex.web.querythreads.DexListQueryThreadRunnable;
+import com.soob.pokedex.inputlisteners.service.DexListService;
 
 import java.util.Objects;
 
@@ -70,10 +70,8 @@ public class DexListActivity extends AppCompatActivity implements DexClickListen
         // get the specific Dex was passed in from the home screen so we know which Dex to get
         RegionalDexEnum dexToGet = DexListSingleton.getInstance().getRegionalDex();
 
-        // query the web API for the list of Pokemon data on a separate thread
-        DexListQueryThreadRunnable dexListQueryThread =
-                new DexListQueryThreadRunnable(this, this.recyclerView, this.dataAdapter, dexToGet);
-        dexListQueryThread.execute();
+        // get the relevant Pokedex data
+        DexListService.queryForPokedex(this, this.recyclerView);
 
         this.recyclerView.scrollToPosition(DexListSingleton.getInstance().getScrollPosition());
     }

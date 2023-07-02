@@ -2,14 +2,14 @@ package com.soob.pokedex.entities;
 
 import android.graphics.Bitmap;
 
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Pokemon
 {
     // TODO: NOT ALL FIELDS ARE COVERED HERE, JUST SOME FOR NOW
     private Bitmap artwork;
-    private int number;
+    private String number;
     private String name;
     private String primaryType;
     private String secondaryType;
@@ -20,16 +20,18 @@ public class Pokemon
     private Map<String, Boolean> abilities;
     private BaseStats baseStats;
     private int baseStatsTotal;
-    private List<String> evolutionChain; // TODO: THIS ISN'T GOING TO WORK YET
+    private LinkedList<String> evolutionChain;
 
     public Pokemon()
     {
     }
 
-    public Pokemon(final Bitmap artwork, final int number, final String name, final String primaryType,
-                   final String secondaryType, final int height, final int weight, final String flavourText,
-                   final int genderRatio,
-                   final Map<String, Boolean> abilities, final BaseStats baseStats, final List<String> evolutionChain)
+    public Pokemon(final Bitmap artwork, final String number, final String name,
+                   final String primaryType, final String secondaryType,
+                   final int height, final int weight,
+                   final String flavourText, final int genderRatio,
+                   final Map<String, Boolean> abilities, final BaseStats baseStats,
+                   final LinkedList<String> evolutionChain)
     {
         this.artwork = artwork;
         this.number = number;
@@ -55,12 +57,12 @@ public class Pokemon
         this.artwork = artwork;
     }
 
-    public int getNumber()
+    public String getNumber()
     {
         return this.number;
     }
 
-    public void setNumber(int number)
+    public void setNumber(String number)
     {
         this.number = number;
     }
@@ -145,12 +147,12 @@ public class Pokemon
         this.baseStats = baseStats;
     }
 
-    public List<String> getEvolutions()
+    public LinkedList<String> getEvolutionChain()
     {
         return this.evolutionChain;
     }
 
-    public void setEvolutionChain(final List<String> evolutionChain)
+    public void setEvolutionChain(final LinkedList<String> evolutionChain)
     {
         this.evolutionChain = evolutionChain;
     }
@@ -168,33 +170,5 @@ public class Pokemon
     public void setGenderRatio(final int genderRatio)
     {
         this.genderRatio = genderRatio;
-    }
-
-    /**
-     * Gender ratio is determined by a value of 1 to 8, with it representing n/8 chance of being
-     * female. This will convert the value to a value n/100 chance of being male
-     *
-     * e.g. a genderRatio of 4 means a 50% chance of being female
-     *
-     * @return chance of being female as proportion of 100
-     */
-    public float getGenderRatioCalcuatedFemale()
-    {
-        // multiply by 12.5 because 100/8 = 12.5
-        return this.genderRatio * 12.5f;
-    }
-
-    /**
-     * Gender ratio is determined by a value of 1 to 8, with it representing n/8 chance of being
-     * female. This will convert the value to a value n/100 chance of being male
-     *
-     * e.g. a genderRatio of 4 means a 50% chance of being male
-     *
-     * @return chance of being male as a proportion of 100
-     */
-    public float getGenderRatioCalcuatedMale()
-    {
-        // multiply by 12.5 because 100/8 = 12.5 and subtract from 100 to inverse from female
-        return 100f - (this.genderRatio * 12.5f);
     }
 }

@@ -1,7 +1,5 @@
 package com.soob.pokedex.web.pokeapi.artwork;
 
-import com.google.gson.JsonElement;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;

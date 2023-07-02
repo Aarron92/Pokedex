@@ -30,6 +30,8 @@ import com.soob.pokedex.R;
 import com.soob.pokedex.adapters.PokemonDetailsAbilitiesAdapter;
 import com.soob.pokedex.enums.TypeColourEnum;
 import com.soob.pokedex.entities.Pokemon;
+import com.soob.pokedex.inputlisteners.service.details.GenderService;
+import com.soob.pokedex.inputlisteners.service.details.PokemonService;
 import com.soob.pokedex.web.querythreads.PokemonDetailsQueryThreadCallable;
 
 import java.util.ArrayList;
@@ -128,7 +130,7 @@ public class PokemonDetailsActivity extends AppCompatActivity
         linearLayout.setBackgroundColor(ContextCompat.getColor(this.getApplicationContext(),
                 getTypeColourKey(pokemon.getPrimaryType())));
 
-        // the abilities section is not set explicitly but is instead handled by and adapter in the
+        // the abilities section is not set explicitly but is instead handled by an adapter in the
         // querying thread so nothing to do here
 
         // set the gender ration display using a stacked horizontal bar chart
@@ -139,6 +141,10 @@ public class PokemonDetailsActivity extends AppCompatActivity
         TextView baseStatTotalTextView = this.findViewById(R.id.detailsBaseStatsTotal);
         final String baseStateTotalString = "Total: " + pokemon.getBaseStatsTotal();
         baseStatTotalTextView.setText(baseStateTotalString);
+
+        // display the evolution chain and triggers
+
+        // display any different forms
     }
 
     /**
@@ -256,7 +262,8 @@ public class PokemonDetailsActivity extends AppCompatActivity
         //Set bar entries and add necessary formatting
         List<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0f, new float[]
-                {pokemon.getGenderRatioCalcuatedMale(), pokemon.getGenderRatioCalcuatedFemale()}));
+                {GenderService.getGenderRatioCalculatedMale(pokemon.getGenderRatio()),
+                        GenderService.getGenderRatioCalculatedFemale(pokemon.getGenderRatio())}));
 
         BarDataSet barDataSet = new BarDataSet(entries, "Bar Data Set");
 

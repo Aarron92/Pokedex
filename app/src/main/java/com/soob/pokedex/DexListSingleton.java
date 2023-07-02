@@ -1,7 +1,5 @@
 package com.soob.pokedex;
 
-import android.app.Application;
-
 import com.soob.pokedex.enums.RegionalDexEnum;
 
 /**
