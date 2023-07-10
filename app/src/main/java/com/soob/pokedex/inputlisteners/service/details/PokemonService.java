@@ -97,7 +97,8 @@ public class PokemonService
         Response<JsonElement> speciesDetailsResponse = queryForSpeciesDetails(pokemon.getName());
 
         // make sure the response body is not null before trying to do anything with it
-        if (speciesDetailsResponse.body() != null) {
+        if (speciesDetailsResponse.body() != null)
+        {
             // TODO: AS ABOVE, SHOULD PROBABLY COME UP WITH A MODEL/CLASS THAT THIS CAN BE MAPPED TO AUTOMATICALLY
             JsonObject responseBody = ((JsonObject) speciesDetailsResponse.body());
 

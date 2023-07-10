@@ -90,7 +90,8 @@ public class DexListService
 
         Call<JsonElement> pokedexQueryCall;
 
-        switch(DexListSingleton.getInstance().getRegionalDex()) {
+        switch(DexListSingleton.getInstance().getRegionalDex())
+        {
             case NATIONAL:
                 pokedexQueryCall = PokeApiClient.getInstance().getPokeApi().getPokedexList_National();
                 break;

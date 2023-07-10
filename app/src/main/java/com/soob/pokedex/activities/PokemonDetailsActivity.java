@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.soob.pokedex.R;
 import com.soob.pokedex.adapters.PokemonDetailsAbilitiesAdapter;
-import com.soob.pokedex.charts.BaseStatsChartFactory;
-import com.soob.pokedex.charts.GenderChartFactory;
+import com.soob.pokedex.charts.basestats.BaseStatsChartFactory;
+import com.soob.pokedex.charts.gender.GenderChartFactory;
 import com.soob.pokedex.entities.Pokemon;
 import com.soob.pokedex.inputlisteners.service.details.PokemonService;
 import com.soob.pokedex.inputlisteners.service.details.TypesService;
@@ -115,7 +115,7 @@ public class PokemonDetailsActivity extends AppCompatActivity
         GenderChartFactory.createGenderRatioChart(this, pokemon.getGenderRatio());
 
         // set the base stats display using a horizontal bar chart
-        BaseStatsChartFactory.createChart(this, pokemon.getBaseStats());
+        BaseStatsChartFactory.createBaseStatsChart(this, pokemon.getBaseStats());
         setBaseStatsTotal(pokemon.getBaseStatsTotal());
 
         // display the evolution chain and triggers

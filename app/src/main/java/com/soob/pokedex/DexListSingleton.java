@@ -21,7 +21,8 @@ public final class DexListSingleton {
      */
     private int scrollPosition = 0;
 
-    private DexListSingleton() {
+    private DexListSingleton()
+    {
     }
 
     public static DexListSingleton getInstance()
