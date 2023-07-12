@@ -81,7 +81,7 @@ public class PokemonService
             TypesService.setPokemonTypes(pokemon, responseBody);
 
             // height and weight
-            HeightAndWeightService.setPokemonHeightAndWeight(pokemon);
+            HeightAndWeightService.setPokemonHeightAndWeight(pokemon, responseBody);
 
             // abilities
             AbilitiesService.setPokemonAbilities(pokemon, responseBody);

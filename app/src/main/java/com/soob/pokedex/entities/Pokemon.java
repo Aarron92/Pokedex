@@ -14,8 +14,8 @@ public class Pokemon
     private String name;
     private String primaryType;
     private String secondaryType;
-    private int height;
-    private int weight;
+    private double height;
+    private double weight;
     private String flavourText;
     private int genderRatio;
     private Map<String, Boolean> abilities;
@@ -28,7 +28,7 @@ public class Pokemon
 
     public Pokemon(final Bitmap artwork, final String number, final String name,
                    final String primaryType, final String secondaryType,
-                   final int height, final int weight,
+                   final double height, final double weight,
                    final String flavourText, final int genderRatio,
                    final Map<String, Boolean> abilities, final BaseStats baseStats,
                    final EvolutionChain evolutionChain)
@@ -97,22 +97,22 @@ public class Pokemon
         this.secondaryType = secondaryType;
     }
 
-    public int getHeight()
+    public double getHeight()
     {
         return this.height;
     }
 
-    public void setHeight(int height)
+    public void setHeight(double height)
     {
         this.height = height;
     }
 
-    public int getWeight()
+    public double getWeight()
     {
         return this.weight;
     }
 
-    public void setWeight(int weight)
+    public void setWeight(double weight)
     {
         this.weight = weight;
     }

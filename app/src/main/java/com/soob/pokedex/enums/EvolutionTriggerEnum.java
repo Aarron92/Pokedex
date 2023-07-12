@@ -5,7 +5,7 @@ package com.soob.pokedex.enums;
  */
 public enum EvolutionTriggerEnum
 {
-    LEVEL_UP("level-up");
+    LEVEL_UP("Lv. ");
 
     /**
      * Key - evolution trigger type

@@ -148,12 +148,13 @@ public class PokemonDetailsActivity extends AppCompatActivity
         artworkView.setImageBitmap(pokemon.getArtwork());
 
         // number
-        TextView numberText = this.summaryCardView.findViewById(R.id.detailsPokemonNumberTextView);
-        numberText.setText(pokemon.getNumber());
+        TextView numberTextView = this.summaryCardView.findViewById(R.id.detailsPokemonNumberTextView);
+        String numberText = "#" + pokemon.getNumber() + " ";
+        numberTextView.setText(numberText);
 
         // name
-        TextView nameText = this.summaryCardView.findViewById(R.id.detailsPokemonNameTextView);
-        nameText.setText(pokemon.getName());
+        TextView nameTextView = this.summaryCardView.findViewById(R.id.detailsPokemonNameTextView);
+        nameTextView.setText(pokemon.getName());
 
         // species
         // TODO: NOT RETRIEVED IN THE RESPONSE YET
@@ -194,14 +195,19 @@ public class PokemonDetailsActivity extends AppCompatActivity
     private void populateInformationCard(final Pokemon pokemon)
     {
         // height
-        // TODO: Not yet retrieved so not set yet
+        TextView heightTextView = this.findViewById(R.id.detailsPokemonHeightValueTextView);
+        String heightText = pokemon.getHeight() + "m";
+        heightTextView.setText(heightText);
 
         // weight
-        // TODO: Not yet retrieved so not set yet
+        TextView weightTextView = this.findViewById(R.id.detailsPokemonWeightValueTextView);
+        String weightText = pokemon.getWeight() + "kg";
+        weightTextView.setText(weightText);
 
         // flavour text
-        TextView flavourText = this.findViewById(R.id.detailsPokemonFlavourTextTextView);
-        flavourText.setText(pokemon.getFlavourText());
+        // TODO: Eventually want to make this so you can swipe through and choose which version you want
+        TextView flavourTextView = this.findViewById(R.id.detailsPokemonFlavourTextTextView);
+        flavourTextView.setText(pokemon.getFlavourText());
     }
 
     private void setBaseStatsTotal(int baseStatsTotal)

@@ -13,7 +13,6 @@ public class PokemonSummary
 {
     /**
      * The artwork of the Pokemon, stored as a Bitmap
-     * TODO: Not returned so might be redundant
      */
     private Bitmap artwork;
 
@@ -32,13 +31,6 @@ public class PokemonSummary
      */
     public PokemonSummary()
     {}
-
-    public PokemonSummary(final Bitmap artwork, final int number, final String name)
-    {
-        this.artwork = artwork;
-        this.number = number;
-        this.name = name;
-    }
 
     public Bitmap getArtwork()
     {

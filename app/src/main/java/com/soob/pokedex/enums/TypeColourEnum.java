@@ -15,7 +15,7 @@ public enum TypeColourEnum
     FIGHTING("fighting", R.color.type_colour_fighting),
     FIRE("fire", R.color.type_colour_fire),
     FLYING("flying", R.color.type_colour_flying),
-    GHOST("ghost", R.color.type_colour_ground),
+    GHOST("ghost", R.color.type_colour_ghost),
     GRASS("grass", R.color.type_colour_grass),
     GROUND("ground", R.color.type_colour_ground),
     ICE("ice", R.color.type_colour_ice),

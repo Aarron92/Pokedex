@@ -8,6 +8,8 @@ import com.soob.pokedex.enums.EvolutionTriggerEnum;
  * Class holding details of a particular stage in a Pokemon's evolution chain.
  * Means that we can just pass just the details needed to display the evolution chain without the
  * need for a full Pokemon object
+ *
+ * TODO: The class PokemonSummary already does all of this, this might actually be redundant
  */
 public class EvolutionChainStage
 {
@@ -38,6 +40,14 @@ public class EvolutionChainStage
     public EvolutionChainStage()
     {
         // empty constructor
+    }
+
+    public EvolutionChainStage(int dexNumber, String name, Bitmap artwork, EvolutionTrigger trigger)
+    {
+        this.dexNumber = dexNumber;
+        this.name = name;
+        this.artwork = artwork;
+        this.trigger = trigger;
     }
 
     public int getDexNumber()
