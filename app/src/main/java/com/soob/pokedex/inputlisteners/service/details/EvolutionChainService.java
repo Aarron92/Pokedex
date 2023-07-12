@@ -159,18 +159,19 @@ public class EvolutionChainService
         if(evolutionDetails.size() > 0)
         {
             String triggerName = evolutionDetails.get(0).getAsJsonObject().get("trigger").getAsJsonObject().get("name").getAsString();
-            int triggerLevel = evolutionDetails.get(0).getAsJsonObject().get("min_level").getAsInt();
 
             evolutionTrigger = new EvolutionTrigger();
             if(triggerName.equals("level-up"))
             {
+                int triggerLevel = evolutionDetails.get(0).getAsJsonObject().get("min_level").getAsInt();
                 evolutionTrigger.setEvolutionTriggerType(EvolutionTriggerEnum.LEVEL_UP);
+                evolutionTrigger.setMinimumLevel(triggerLevel);
             }
             else if(triggerName.equals("trade"))
             {
                 evolutionTrigger.setEvolutionTriggerType(EvolutionTriggerEnum.TRADE);
             }
-            evolutionTrigger.setMinimumLevel(triggerLevel);
+
         }
 
         return evolutionTrigger;

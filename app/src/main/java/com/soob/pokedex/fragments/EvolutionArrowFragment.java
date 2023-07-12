@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.soob.pokedex.R;
 import com.soob.pokedex.entities.evolution.EvolutionTrigger;
+import com.soob.pokedex.enums.EvolutionTriggerEnum;
 
 /**
  * Fragment for evolution trigger arrow
@@ -47,9 +48,34 @@ public class EvolutionArrowFragment extends Fragment
 
             // set the trigger details
             // TODO: LIKE BEFORE, JUST WORKS FOR LEVEL UP FOR NOW
-            String triggerText = this.evolutionTrigger.getEvolutionTriggerType().getKey() + this.evolutionTrigger.getMinimumLevel();
+            String triggerText = determineTriggerText();
             TextView nameTextView = (TextView) getView().findViewById(R.id.evoArrowTriggerText);
             nameTextView.setText(triggerText);
         }
+    }
+
+    /**
+     * Determines the text to how on the evolution trigger arrow based on evolution conditions
+     *
+     * e.g. Lv. 20, Lv. 36 at night, Use Fire Stone etc
+     *
+     * TODO: This is probably going to get very messy, need to put this in it's own service and try
+     *  to avoid a huge class of if statements
+     */
+    private String determineTriggerText()
+    {
+        String evolutionTrigger = this.evolutionTrigger.getEvolutionTriggerType().getKey();
+        String triggerText = evolutionTrigger;
+
+        if(evolutionTrigger.equals(EvolutionTriggerEnum.LEVEL_UP.getKey()))
+        {
+            triggerText = evolutionTrigger + this.evolutionTrigger.getMinimumLevel();
+        }
+        else if(evolutionTrigger.equals(EvolutionTriggerEnum.TRADE.getKey()))
+        {
+            triggerText = evolutionTrigger;
+        }
+
+        return triggerText;
     }
 }
