@@ -7,13 +7,11 @@ import androidx.core.content.ContextCompat;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.soob.pokedex.R;
 import com.soob.pokedex.charts.BarChartInterface;
-import com.soob.pokedex.inputlisteners.service.details.GenderService;
 
 import java.util.ArrayList;
 import java.util.List;

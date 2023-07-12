@@ -79,9 +79,9 @@ public class EvolutionChainService
         // query the API for the evolution chain details of the specific Pokemon
         Call<JsonElement> evolutionsDetailsCall =
                 PokeApiClient.getInstance().getPokeApi().getEvolutionChain(String.valueOf(evolutionChainNumber));
-
         Response<JsonElement> evolutionDetailsResponse = PokeApiClientService.queryMainPokeApi(evolutionsDetailsCall);
 
+        // if there was a valid response, build up a list of the evolution stages
         if(evolutionDetailsResponse.body() != null)
         {
             populateEvolutionChain(evolutionDetailsResponse.body().getAsJsonObject().get("chain"), evolutionChainStages);
@@ -156,7 +156,7 @@ public class EvolutionChainService
 
         JsonArray evolutionDetails = pokemonJson.getAsJsonObject().getAsJsonArray("evolution_details");
 
-        if(evolutionDetails.size() == 1)
+        if(evolutionDetails.size() > 0)
         {
             String triggerName = evolutionDetails.get(0).getAsJsonObject().get("trigger").getAsJsonObject().get("name").getAsString();
             int triggerLevel = evolutionDetails.get(0).getAsJsonObject().get("min_level").getAsInt();
@@ -166,115 +166,13 @@ public class EvolutionChainService
             {
                 evolutionTrigger.setEvolutionTriggerType(EvolutionTriggerEnum.LEVEL_UP);
             }
+            else if(triggerName.equals("trade"))
+            {
+                evolutionTrigger.setEvolutionTriggerType(EvolutionTriggerEnum.TRADE);
+            }
             evolutionTrigger.setMinimumLevel(triggerLevel);
         }
 
         return evolutionTrigger;
     }
-
-//    /**
-//     * Query PokeAPI for the evolution chain details of a Pokemon
-//     *
-//     * The evolution chain number is the number as specified by PokeAPI and doesn't line up with a dex
-//     * number. This is pulled from the response of the species details query
-//     *
-//     * This method builds up a map of the names and dex numbers of the Pokemon in the evolution
-//     * chain, which can be used later for populating the actual evolution chain data
-//     */
-//    public static LinkedHashMap<Integer, String> queryForPokemonInTheEvolutionChain(String evolutionChainNumber)
-//    {
-//        LinkedHashMap<Integer, String>  evolutionChain = new LinkedHashMap<>();
-//
-//        // query the API for the evolution chain details of the specific Pokemon
-//        Call<JsonElement> evolutionsDetailsCall =
-//                PokeApiClient.getInstance().getPokeApi().getEvolutionChain(evolutionChainNumber);
-//
-//        Response<JsonElement> evolutionDetailsResponse = PokeApiClientService.queryMainPokeApi(evolutionsDetailsCall);
-//
-//        if(evolutionDetailsResponse.body() != null)
-//        {
-//            getPokemonInEvolutionChain(evolutionDetailsResponse.body().getAsJsonObject().get("chain"), evolutionChain);
-//        }
-//
-//        return evolutionChain;
-//    }
-//
-//    /**
-//     * Recursively go through the evolution chain query response to get the Pokemon in it
-//     *
-//     * Do this recursively due to the recursive structure that PokeAPI uses where each step in the
-//     * evolution contains details of the next step via a nested JSON structure
-//     */
-//    private static void getPokemonInEvolutionChain(JsonElement evolutionChainJson, LinkedHashMap<Integer, String>  mapOfEvolutions)
-//    {
-//        JsonObject currentJsonLayer = evolutionChainJson.getAsJsonObject();
-//
-//        JsonObject pokemonJson = currentJsonLayer.getAsJsonObject().get("species").getAsJsonObject();
-//        String pokemonName = pokemonJson.get("name").getAsString();
-//
-//        // get the dex number from the species URL
-//        String speciesUrl = pokemonJson.get("url").getAsString();
-//        String pokemonNumber = pullNumberOutOfUrl(speciesUrl);
-//
-//        mapOfEvolutions.put(Integer.valueOf(pokemonNumber), pokemonName);
-//
-//        JsonArray evolvesToArray = currentJsonLayer.get("evolves_to").getAsJsonArray();
-//
-//        // standard evolution chains have a single 'evolves to' array because each Pokemon can only
-//        // evolve into one other Pokemon
-//        if(evolvesToArray.size() == 1)
-//        {
-//            getPokemonInEvolutionChain(evolvesToArray.get(0), mapOfEvolutions);
-//        }
-//        // non-standard evolution chains are where Pokemon can evolve into multiple potential
-//        // different Pokemon or don't follow the standard pattern (e.g Eevee)
-//        else if(evolvesToArray.size() > 1)
-//        {
-//            for(int i = 0; i < evolvesToArray.size(); i++)
-//            {
-//                getPokemonInEvolutionChain(evolvesToArray.get(i), mapOfEvolutions);
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Given a list of Pokemon names, build the evolution chain object detailing the name, number
-//     * and artwork for each Pokemon
-//     *
-//     * TODO: We already have the details of the Pokemon on the current page so should look to reuse
-//     *
-//     * TODO: This will just be proof of concept to get working for the 3-stage evo chain for now
-//     *
-//     * TODO: This is going to be making a few calls to PokeApi so worth looking into how to make
-//     *  each section load individually with a little loading wheel
-//     */
-//    private static EvolutionChain buildFullEvolutionChain(LinkedHashMap<Integer, String> pokemonMap)
-//    {
-//        LinkedList<EvolutionChainStage> stages = new LinkedList<>();
-//
-//        // loop through each Pokemon in the provided map
-//        for(Map.Entry<Integer, String> pokemonEntry : pokemonMap.entrySet())
-//        {
-//            // create an evo stage object to add to the chain
-//            EvolutionChainStage evolutionStage = new EvolutionChainStage();
-//
-//            // set the Pokemon's dex number
-//            evolutionStage.setDexNumber(pokemonEntry.getKey());
-//
-//            // set the Pokemon's name
-//            String name = pokemonEntry.getValue();
-//            String nameWithCapital = name.substring(0, 1).toUpperCase() + name.substring(1);
-//            evolutionStage.setName(nameWithCapital);
-//
-//            // get and set the Pokemon's artwork by querying the PokeApi for the relevant artwork
-//            Bitmap artwork = ArtworkService.queryForPokemonArtwork(String.valueOf(pokemonEntry.getKey()));
-//            evolutionStage.setArtwork(artwork);
-//
-//            // set the trigger for a evolving to a particular stage
-//
-//            stages.add(evolutionStage);
-//        }
-//
-//        return new EvolutionChain(stages);
-//    }
 }

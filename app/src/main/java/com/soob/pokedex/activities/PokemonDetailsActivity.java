@@ -16,12 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soob.pokedex.entities.evolution.EvolutionChain;
-import com.soob.pokedex.fragments.EvolutionChainFragment_3Stage;
 import com.soob.pokedex.R;
 import com.soob.pokedex.adapters.PokemonDetailsAbilitiesAdapter;
 import com.soob.pokedex.charts.basestats.BaseStatsChartFactory;
 import com.soob.pokedex.charts.gender.GenderChartFactory;
 import com.soob.pokedex.entities.Pokemon;
+import com.soob.pokedex.fragments.StandardEvolutionChainFragment;
 import com.soob.pokedex.inputlisteners.service.details.PokemonService;
 import com.soob.pokedex.inputlisteners.service.details.TypesService;
 
@@ -226,14 +226,8 @@ public class PokemonDetailsActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        // TODO: Placeholder while getting things working
-        boolean isStandardEvolutionChain = true;
-
-        if(isStandardEvolutionChain)
-        {
-            fragmentTransaction.replace(R.id.detailsEvolutionChainRelativeLayout,
-                    new EvolutionChainFragment_3Stage(evolutionChain));
-        }
+        fragmentTransaction.replace(R.id.detailsEvolutionChainRelativeLayout,
+                new StandardEvolutionChainFragment(evolutionChain));
 
         fragmentTransaction.commit();
     }
