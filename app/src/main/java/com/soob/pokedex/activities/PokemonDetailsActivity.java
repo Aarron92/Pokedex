@@ -10,9 +10,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.soob.pokedex.entities.evolution.EvolutionChain;
+import com.soob.pokedex.fragments.EvolutionChainFragment_3Stage;
 import com.soob.pokedex.R;
 import com.soob.pokedex.adapters.PokemonDetailsAbilitiesAdapter;
 import com.soob.pokedex.charts.basestats.BaseStatsChartFactory;
@@ -119,7 +123,7 @@ public class PokemonDetailsActivity extends AppCompatActivity
         setBaseStatsTotal(pokemon.getBaseStatsTotal());
 
         // display the evolution chain and triggers
-        // TODO
+        loadEvolutionFragment(pokemon.getEvolutionChain());
 
         // display any different forms
         // TODO
@@ -206,5 +210,25 @@ public class PokemonDetailsActivity extends AppCompatActivity
         String baseStateTotalString = "Total: " + baseStatsTotal;
 
         baseStatTotalTextView.setText(baseStateTotalString);
+    }
+
+    /**
+     * Load the relevant fragment to display the specific Pokemon's evolution chain
+     */
+    private void loadEvolutionFragment(EvolutionChain evolutionChain)
+    {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // TODO: Placeholder while getting things working
+        boolean isStandardEvolutionChain = true;
+
+        if(isStandardEvolutionChain)
+        {
+            fragmentTransaction.replace(R.id.detailsEvolutionChainRelativeLayout,
+                    new EvolutionChainFragment_3Stage(evolutionChain));
+        }
+
+        fragmentTransaction.commit();
     }
 }

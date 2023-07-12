@@ -8,6 +8,8 @@ import retrofit2.http.Path;
 
 /**
  * Interface representing the PokeAPI and the various endpoints
+ *
+ * TODO: Worth splitting this out in separate controllers for different bits like evo chains
  */
 public interface PokeApiController
 {

@@ -342,16 +342,21 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="Evolution Chain"
+                    android:paddingBottom="5dp"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                     android:textColor="#000000" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/detailsEvolutionChainRecyclerView"
+                <FrameLayout
+                    android:id="@+id/detailsEvolutionChainRelativeLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/detailsEvolutionChainHeader" />
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/detailsEvolutionChainHeader"/>
 
-
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/detailsEvolutionChainRecyclerView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/detailsEvolutionChainHeader" />-->
 
             </RelativeLayout>
 

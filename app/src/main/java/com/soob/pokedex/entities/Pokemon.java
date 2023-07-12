@@ -2,7 +2,8 @@ package com.soob.pokedex.entities;
 
 import android.graphics.Bitmap;
 
-import java.util.LinkedList;
+import com.soob.pokedex.entities.evolution.EvolutionChain;
+
 import java.util.Map;
 
 public class Pokemon
@@ -19,8 +20,7 @@ public class Pokemon
     private int genderRatio;
     private Map<String, Boolean> abilities;
     private BaseStats baseStats;
-    private int baseStatsTotal;
-    private LinkedList<String> evolutionChain;
+    private EvolutionChain evolutionChain;
 
     public Pokemon()
     {
@@ -31,7 +31,7 @@ public class Pokemon
                    final int height, final int weight,
                    final String flavourText, final int genderRatio,
                    final Map<String, Boolean> abilities, final BaseStats baseStats,
-                   final LinkedList<String> evolutionChain)
+                   final EvolutionChain evolutionChain)
     {
         this.artwork = artwork;
         this.number = number;
@@ -147,12 +147,12 @@ public class Pokemon
         this.baseStats = baseStats;
     }
 
-    public LinkedList<String> getEvolutionChain()
+    public EvolutionChain getEvolutionChain()
     {
         return this.evolutionChain;
     }
 
-    public void setEvolutionChain(final LinkedList<String> evolutionChain)
+    public void setEvolutionChain(final EvolutionChain evolutionChain)
     {
         this.evolutionChain = evolutionChain;
     }

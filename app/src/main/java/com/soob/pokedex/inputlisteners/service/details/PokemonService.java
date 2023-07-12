@@ -54,7 +54,7 @@ public class PokemonService
      * Given a Pokemon object, get all the details for that specific Pokemon and set the details
      *
      * TODO: THIS WHOLE THREADING STUFF IS QUITE MESSY AND WOULD RUN THE RISK OF THIS BEING CALLED
-     * FROM OTHER PLACES WHEN IT SHOULDN'T - NEEDS SORTING OUT
+     *  FROM OTHER PLACES WHEN IT SHOULDN'T - NEEDS SORTING OUT
      */
     public static void getPokemonWithAllDetails(Pokemon pokemon)
     {

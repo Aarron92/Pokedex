@@ -29,4 +29,6 @@
     <string name="details_weight_placeholder">XYZ</string>
     <string name="details_flavour_text_placeholder">FLAVOUR TEXT</string>
     <string name="details_gender_ratio_header">Gender Ratio</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
