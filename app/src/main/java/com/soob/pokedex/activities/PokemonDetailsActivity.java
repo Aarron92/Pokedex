@@ -21,7 +21,7 @@ import com.soob.pokedex.adapters.PokemonDetailsAbilitiesAdapter;
 import com.soob.pokedex.charts.basestats.BaseStatsChartFactory;
 import com.soob.pokedex.charts.gender.GenderChartFactory;
 import com.soob.pokedex.entities.Pokemon;
-import com.soob.pokedex.fragments.StandardEvolutionChainFragment;
+import com.soob.pokedex.fragments.EvolutionChainFragment;
 import com.soob.pokedex.inputlisteners.service.details.PokemonService;
 import com.soob.pokedex.inputlisteners.service.details.TypesService;
 
@@ -227,7 +227,7 @@ public class PokemonDetailsActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.replace(R.id.detailsEvolutionChainRelativeLayout,
-                new StandardEvolutionChainFragment(evolutionChain));
+                new EvolutionChainFragment(evolutionChain));
 
         fragmentTransaction.commit();
     }

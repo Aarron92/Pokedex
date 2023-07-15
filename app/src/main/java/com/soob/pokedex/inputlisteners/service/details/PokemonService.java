@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.soob.pokedex.activities.PokemonDetailsActivity;
 import com.soob.pokedex.entities.Pokemon;
 import com.soob.pokedex.inputlisteners.service.PokeApiClientService;
+import com.soob.pokedex.inputlisteners.service.details.evolution.EvolutionChainService;
 import com.soob.pokedex.web.pokeapi.PokeApiClient;
 import com.soob.pokedex.web.querythreads.PokemonDetailsQueryThreadCallable;
 

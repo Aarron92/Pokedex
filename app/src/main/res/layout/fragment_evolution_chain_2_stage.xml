@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.StandardEvolutionChainFragment">
+    tools:context=".fragments.EvolutionChainFragment">
 
     <!-- TODO: ALL THE LAYOUT DIMENSIONS ARE MANUALLY SET FOR NOW, WILL BE BETTER TO EVENTUALLY SET PROGRAMMATICALLY BASED ON PARENT SIZE EVENTUALLY -->
     <LinearLayout

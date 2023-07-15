@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.soob.pokedex.R;
 import com.soob.pokedex.entities.evolution.EvolutionTrigger;
-import com.soob.pokedex.enums.EvolutionTriggerEnum;
+import com.soob.pokedex.enums.EvoArrowImgEnum;
+import com.soob.pokedex.inputlisteners.service.details.evolution.EvolutionTriggerService;
 
 /**
  * Fragment for evolution trigger arrow
@@ -20,10 +22,12 @@ import com.soob.pokedex.enums.EvolutionTriggerEnum;
 public class EvolutionArrowFragment extends Fragment
 {
     private final EvolutionTrigger evolutionTrigger;
+    private EvoArrowImgEnum evoArrowImg;
 
-    public EvolutionArrowFragment(EvolutionTrigger evolutionTrigger)
+    public EvolutionArrowFragment(EvolutionTrigger evolutionTrigger, EvoArrowImgEnum evoArrowImg)
     {
         this.evolutionTrigger = evolutionTrigger;
+        this.evoArrowImg = evoArrowImg;
     }
 
     @Override
@@ -36,46 +40,32 @@ public class EvolutionArrowFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        populatePokemonDetails();
+        populateTriggerArrowDetails();
     }
 
-    private void populatePokemonDetails()
+    private void populateTriggerArrowDetails()
     {
         if(getView() != null)
         {
-            // TODO: ARROW IS ALWAYS RIGHT FACING BUT COULD REUSE THIS FOR OTHER DIRECTIONS WHEN NEEDED
             // set the arrow image
+            ImageView imageView = getView().findViewById(R.id.evoArrowArtwork);
+            if(evoArrowImg.equals(EvoArrowImgEnum.RIGHT_ARROW))
+            {
+                imageView.setImageResource(R.drawable.evo_arrow_right);
+            }
+            else if(evoArrowImg.equals(EvoArrowImgEnum.DIAGONAL_UP_RIGHT_ARROW))
+            {
+                imageView.setImageResource(R.drawable.evo_arrow_up_right);
+            }
+            if(evoArrowImg.equals(EvoArrowImgEnum.DIAGONAL_DOWN_RIGHT_ARROW))
+            {
+                imageView.setImageResource(R.drawable.evo_arrow_down_right);
+            }
 
             // set the trigger details
-            // TODO: LIKE BEFORE, JUST WORKS FOR LEVEL UP FOR NOW
-            String triggerText = determineTriggerText();
+            String triggerText = EvolutionTriggerService.prettyPrintTriggerText(this.evolutionTrigger);
             TextView nameTextView = (TextView) getView().findViewById(R.id.evoArrowTriggerText);
             nameTextView.setText(triggerText);
         }
-    }
-
-    /**
-     * Determines the text to how on the evolution trigger arrow based on evolution conditions
-     *
-     * e.g. Lv. 20, Lv. 36 at night, Use Fire Stone etc
-     *
-     * TODO: This is probably going to get very messy, need to put this in it's own service and try
-     *  to avoid a huge class of if statements
-     */
-    private String determineTriggerText()
-    {
-        String evolutionTrigger = this.evolutionTrigger.getEvolutionTriggerType().getKey();
-        String triggerText = evolutionTrigger;
-
-        if(evolutionTrigger.equals(EvolutionTriggerEnum.LEVEL_UP.getKey()))
-        {
-            triggerText = evolutionTrigger + this.evolutionTrigger.getMinimumLevel();
-        }
-        else if(evolutionTrigger.equals(EvolutionTriggerEnum.TRADE.getKey()))
-        {
-            triggerText = evolutionTrigger;
-        }
-
-        return triggerText;
     }
 }

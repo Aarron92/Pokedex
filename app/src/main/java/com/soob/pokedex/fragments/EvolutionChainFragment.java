@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.soob.pokedex.R;
 import com.soob.pokedex.entities.evolution.EvolutionChain;
+import com.soob.pokedex.enums.EvoArrowImgEnum;
 
 /**
  * Fragment for a standard evolution chain with 1-3 stages
@@ -19,23 +20,27 @@ import com.soob.pokedex.entities.evolution.EvolutionChain;
  * TODO: Really this should probably be reusable for standard evolution lines of 1, 2, 3 and just
  *  add/remove the extra stages as necessary, but haven't figured out how to do that yet
  */
-public class StandardEvolutionChainFragment extends Fragment
+public class EvolutionChainFragment extends Fragment
 {
     private final EvolutionChain evolutionChain;
     private final int numberOfStages;
 
-    public StandardEvolutionChainFragment(EvolutionChain evolutionChain)
+    public EvolutionChainFragment(EvolutionChain evolutionChain)
     {
         this.evolutionChain = evolutionChain;
         this.numberOfStages = evolutionChain.getStages().size();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         int fragmentId;
 
-        if(numberOfStages == 3)
+        if(numberOfStages == 4)
+        {
+            fragmentId = R.layout.fragment_evolution_chain_3_stage_with_alt;
+        }
+        else if(numberOfStages == 3)
         {
             fragmentId = R.layout.fragment_evolution_chain_3_stage;
         }
@@ -55,7 +60,12 @@ public class StandardEvolutionChainFragment extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        if(numberOfStages == 3)
+        // 4 stages refers to chains where there a Pokemon goes through 3 stages, but the last stage is one of several
+        if(numberOfStages == 4)
+        {
+            create3StageWithAltEvolutionChain();
+        }
+        else if(numberOfStages == 3)
         {
             create3StageEvolutionChain();
         }
@@ -69,17 +79,35 @@ public class StandardEvolutionChainFragment extends Fragment
         }
     }
 
+    private void create3StageWithAltEvolutionChain()
+    {
+        // stage 1
+        createEvolutionStageFragment(R.id.fragment_3_stage_alt_stage1, 0);
+
+        // stage 2 (with trigger)
+        createEvolutionTriggerArrowFragment(R.id.fragment_3_stage_alt_arrow1, 1, EvoArrowImgEnum.RIGHT_ARROW);
+        createEvolutionStageFragment(R.id.fragment_3_stage_alt_stage2, 1);
+
+        // stage 3 (with trigger)
+        createEvolutionTriggerArrowFragment(R.id.fragment_3_stage_alt_arrow2, 2, EvoArrowImgEnum.DIAGONAL_UP_RIGHT_ARROW);
+        createEvolutionStageFragment(R.id.fragment_3_stage_alt_stage3, 2);
+
+        // alternative stage 3 (with trigger)
+        createEvolutionTriggerArrowFragment(R.id.fragment_3_stage_alt_arrow2_other, 3, EvoArrowImgEnum.DIAGONAL_DOWN_RIGHT_ARROW);
+        createEvolutionStageFragment(R.id.fragment_3_stage_alt_stage3_other, 3);
+    }
+
     private void create3StageEvolutionChain()
     {
         // stage 1
         createEvolutionStageFragment(R.id.fragment_3_stage_stage1, 0);
 
         // stage 2 (with trigger)
-        createEvolutionTriggerArrowFragment(R.id.fragment_3_stage_arrow1, 1);
+        createEvolutionTriggerArrowFragment(R.id.fragment_3_stage_arrow1, 1, EvoArrowImgEnum.RIGHT_ARROW);
         createEvolutionStageFragment(R.id.fragment_3_stage_stage2, 1);
 
         // stage 3 (with trigger)
-        createEvolutionTriggerArrowFragment(R.id.fragment_3_stage_arrow2, 2);
+        createEvolutionTriggerArrowFragment(R.id.fragment_3_stage_arrow2, 2, EvoArrowImgEnum.RIGHT_ARROW);
         createEvolutionStageFragment(R.id.fragment_3_stage_stage3, 2);
     }
 
@@ -89,7 +117,7 @@ public class StandardEvolutionChainFragment extends Fragment
         createEvolutionStageFragment(R.id.fragment_2_stage_stage1, 0);
 
         // stage 2 (with trigger)
-        createEvolutionTriggerArrowFragment(R.id.fragment_2_stage_arrow1, 1);
+        createEvolutionTriggerArrowFragment(R.id.fragment_2_stage_arrow1, 1, EvoArrowImgEnum.RIGHT_ARROW);
         createEvolutionStageFragment(R.id.fragment_2_stage_stage2, 1);
     }
 
@@ -106,9 +134,9 @@ public class StandardEvolutionChainFragment extends Fragment
         transaction.replace(fragmentContainerId, childFragment).commit();
     }
 
-    private void createEvolutionTriggerArrowFragment(int fragmentContainerId, int evolutionChainStage)
+    private void createEvolutionTriggerArrowFragment(int fragmentContainerId, int evolutionChainStage, EvoArrowImgEnum arrowImgEnum)
     {
-        Fragment childFragment = new EvolutionArrowFragment(this.evolutionChain.getStages().get(evolutionChainStage).getTrigger());
+        Fragment childFragment = new EvolutionArrowFragment(this.evolutionChain.getStages().get(evolutionChainStage).getTrigger(), arrowImgEnum);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(fragmentContainerId, childFragment).commit();
     }

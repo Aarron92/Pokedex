@@ -1,7 +1,10 @@
-package com.soob.pokedex.inputlisteners.service.details;
+package com.soob.pokedex.inputlisteners.service.details.evolution;
 
 import android.graphics.Bitmap;
+import android.graphics.fonts.SystemFonts;
+import android.widget.Toast;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,11 +12,10 @@ import com.soob.pokedex.entities.evolution.EvolutionChain;
 import com.soob.pokedex.entities.evolution.EvolutionChainStage;
 import com.soob.pokedex.entities.Pokemon;
 import com.soob.pokedex.entities.evolution.EvolutionTrigger;
-import com.soob.pokedex.enums.EvolutionTriggerEnum;
 import com.soob.pokedex.inputlisteners.service.PokeApiClientService;
+import com.soob.pokedex.inputlisteners.service.details.ArtworkService;
 import com.soob.pokedex.web.pokeapi.PokeApiClient;
 
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 import retrofit2.Call;
@@ -110,7 +112,7 @@ public class EvolutionChainService
         String capitalisedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
 
         // get the trigger
-        EvolutionTrigger evolutionTrigger = getEvolutionStageTrigger(currentJsonLayer);
+        EvolutionTrigger evolutionTrigger = buildEvolutionStageTrigger(currentJsonLayer);
 
         // TODO: We already have the details of the Pokemon on the current page so should look to reuse artwork for that one
         // TODO: This is going to be making a few calls to PokeApi so worth looking into how to make load separately with little loading wheel
@@ -147,31 +149,24 @@ public class EvolutionChainService
      *
      * The trigger consists of various details about how a Pokemon evolves. E.g. level up at lv 32,
      * trade, use an item etc
-     *
-     * TODO: This only works with level up triggers for now
      */
-    private static EvolutionTrigger getEvolutionStageTrigger(JsonObject pokemonJson)
+    private static EvolutionTrigger buildEvolutionStageTrigger(JsonObject pokemonJson)
     {
         EvolutionTrigger evolutionTrigger = null;
 
         JsonArray evolutionDetails = pokemonJson.getAsJsonObject().getAsJsonArray("evolution_details");
+        String pokemonName = pokemonJson.getAsJsonObject().get("species").getAsJsonObject().get("name").getAsString();
 
         if(evolutionDetails.size() > 0)
         {
-            String triggerName = evolutionDetails.get(0).getAsJsonObject().get("trigger").getAsJsonObject().get("name").getAsString();
-
-            evolutionTrigger = new EvolutionTrigger();
-            if(triggerName.equals("level-up"))
+            try
             {
-                int triggerLevel = evolutionDetails.get(0).getAsJsonObject().get("min_level").getAsInt();
-                evolutionTrigger.setEvolutionTriggerType(EvolutionTriggerEnum.LEVEL_UP);
-                evolutionTrigger.setMinimumLevel(triggerLevel);
+                evolutionTrigger = EvolutionTriggerService.buildEvolutionTriggerDetails(pokemonName, evolutionDetails.get(0).getAsJsonObject());
             }
-            else if(triggerName.equals("trade"))
+            catch(JsonProcessingException exc)
             {
-                evolutionTrigger.setEvolutionTriggerType(EvolutionTriggerEnum.TRADE);
+                System.out.println("Something went wrong when trying to map the evolution JSON to an object: " + exc.getMessage());
             }
-
         }
 
         return evolutionTrigger;

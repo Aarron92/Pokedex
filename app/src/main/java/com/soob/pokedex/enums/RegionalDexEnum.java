@@ -1,7 +1,7 @@
 package com.soob.pokedex.enums;
 
 /**
- * Enum for the different Pokedexes
+ * Enum for the offsets required for different Pokedexes
  */
 public enum RegionalDexEnum
 {

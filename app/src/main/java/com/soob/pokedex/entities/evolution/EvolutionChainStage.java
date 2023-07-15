@@ -2,8 +2,6 @@ package com.soob.pokedex.entities.evolution;
 
 import android.graphics.Bitmap;
 
-import com.soob.pokedex.enums.EvolutionTriggerEnum;
-
 /**
  * Class holding details of a particular stage in a Pokemon's evolution chain.
  * Means that we can just pass just the details needed to display the evolution chain without the
