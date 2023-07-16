@@ -13,14 +13,21 @@ public class EvolutionChain
     // TODO: Another where we might not need the Linked impl anymore
     LinkedList<EvolutionChainStage> stages;
 
+    /**
+     * Flag denotes whether an evolution chain is 'standard' i.e. is it one stage after another
+     * without different potential pathS
+     */
+    boolean isStandardChain;
+
     public EvolutionChain()
     {
         // empty constructor
     }
 
-    public EvolutionChain(LinkedList<EvolutionChainStage> stages)
+    public EvolutionChain(LinkedList<EvolutionChainStage> stages, boolean isStandardChain)
     {
         this.stages = stages;
+        this.isStandardChain = isStandardChain;
     }
 
     public LinkedList<EvolutionChainStage> getStages()
@@ -31,5 +38,13 @@ public class EvolutionChain
     public void setStages(LinkedList<EvolutionChainStage> stages)
     {
         this.stages = stages;
+    }
+
+    public boolean isStandardChain() {
+        return isStandardChain;
+    }
+
+    public void setStandardChain(boolean standardChain) {
+        isStandardChain = standardChain;
     }
 }

@@ -24,13 +24,13 @@
                 android:layout_height="match_parent">
 
                 <FrameLayout
-                    android:id="@+id/fragment_3_stage_alt_arrow2"
+                    android:id="@+id/fragment_2_stage_alt_arrow1"
                     android:layout_width="60dp"
                     android:layout_height="100dp"
-                    android:layout_toStartOf="@+id/fragment_3_stage_alt_stage3"/>
+                    android:layout_toStartOf="@+id/fragment_2_stage_alt_stage2"/>
 
                 <FrameLayout
-                    android:id="@+id/fragment_3_stage_alt_stage3"
+                    android:id="@+id/fragment_2_stage_alt_stage2"
                     android:layout_width="80dp"
                     android:layout_height="100dp"
                     android:layout_alignParentEnd="true" />
@@ -45,20 +45,9 @@
             android:orientation="horizontal">
 
             <FrameLayout
-                android:id="@+id/fragment_3_stage_alt_stage1"
+                android:id="@+id/fragment_2_stage_alt_stage1"
                 android:layout_width="80dp"
                 android:layout_height="100dp" />
-
-            <FrameLayout
-                android:id="@+id/fragment_3_stage_alt_arrow1"
-                android:layout_width="60dp"
-                android:layout_height="100dp" />
-
-            <FrameLayout
-                android:id="@+id/fragment_3_stage_alt_stage2"
-                android:layout_width="80dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center" />
 
         </LinearLayout>
 
@@ -67,13 +56,13 @@
             android:layout_height="match_parent">
 
             <FrameLayout
-                android:id="@+id/fragment_3_stage_alt_arrow2_other"
+                android:id="@+id/fragment_2_stage_alt_arrow1_other"
                 android:layout_width="60dp"
                 android:layout_height="100dp"
-                android:layout_toStartOf="@+id/fragment_3_stage_alt_stage3_other"/>
+                android:layout_toStartOf="@+id/fragment_2_stage_alt_stage2_other"/>
 
             <FrameLayout
-                android:id="@+id/fragment_3_stage_alt_stage3_other"
+                android:id="@+id/fragment_2_stage_alt_stage2_other"
                 android:layout_width="80dp"
                 android:layout_height="100dp"
                 android:layout_alignParentEnd="true" />

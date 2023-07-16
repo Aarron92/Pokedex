@@ -24,11 +24,13 @@ public class EvolutionChainFragment extends Fragment
 {
     private final EvolutionChain evolutionChain;
     private final int numberOfStages;
+    private final boolean isStandardChain;
 
     public EvolutionChainFragment(EvolutionChain evolutionChain)
     {
         this.evolutionChain = evolutionChain;
         this.numberOfStages = evolutionChain.getStages().size();
+        this.isStandardChain = evolutionChain.isStandardChain();
     }
 
     @Override
@@ -36,13 +38,17 @@ public class EvolutionChainFragment extends Fragment
     {
         int fragmentId;
 
-        if(numberOfStages == 4)
+        if(numberOfStages == 4 && !this.isStandardChain)
         {
             fragmentId = R.layout.fragment_evolution_chain_3_stage_with_alt;
         }
-        else if(numberOfStages == 3)
+        else if(numberOfStages == 3 && isStandardChain)
         {
             fragmentId = R.layout.fragment_evolution_chain_3_stage;
+        }
+        else if(numberOfStages == 3 && !isStandardChain)
+        {
+            fragmentId = R.layout.fragment_evolution_chain_2_stage_with_alt;
         }
         else if(numberOfStages == 2)
         {
@@ -61,13 +67,17 @@ public class EvolutionChainFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         // 4 stages refers to chains where there a Pokemon goes through 3 stages, but the last stage is one of several
-        if(numberOfStages == 4)
+        if(numberOfStages == 4 && !this.isStandardChain)
         {
             create3StageWithAltEvolutionChain();
         }
-        else if(numberOfStages == 3)
+        else if(numberOfStages == 3 && isStandardChain)
         {
             create3StageEvolutionChain();
+        }
+        else if(numberOfStages == 3 && !isStandardChain)
+        {
+            create2StageWithAltEvolutionChain();
         }
         else if(numberOfStages == 2)
         {
@@ -119,6 +129,20 @@ public class EvolutionChainFragment extends Fragment
         // stage 2 (with trigger)
         createEvolutionTriggerArrowFragment(R.id.fragment_2_stage_arrow1, 1, EvoArrowImgEnum.RIGHT_ARROW);
         createEvolutionStageFragment(R.id.fragment_2_stage_stage2, 1);
+    }
+
+    private void create2StageWithAltEvolutionChain()
+    {
+        // stage 1
+        createEvolutionStageFragment(R.id.fragment_2_stage_alt_stage1, 0);
+
+        // stage 2 (with trigger)
+        createEvolutionTriggerArrowFragment(R.id.fragment_2_stage_alt_arrow1, 1, EvoArrowImgEnum.DIAGONAL_UP_RIGHT_ARROW);
+        createEvolutionStageFragment(R.id.fragment_2_stage_alt_stage2, 1);
+
+        // alternative stage 2 (with trigger)
+        createEvolutionTriggerArrowFragment(R.id.fragment_2_stage_alt_arrow1_other, 2, EvoArrowImgEnum.DIAGONAL_DOWN_RIGHT_ARROW);
+        createEvolutionStageFragment(R.id.fragment_2_stage_alt_stage2_other, 2);
     }
 
     private void create1StageEvolutionChain()

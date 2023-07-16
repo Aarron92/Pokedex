@@ -1,8 +1,6 @@
 package com.soob.pokedex.inputlisteners.service.details.evolution;
 
 import android.graphics.Bitmap;
-import android.graphics.fonts.SystemFonts;
-import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonArray;
@@ -26,6 +24,8 @@ import retrofit2.Response;
  *
  * TODO: As this is getting more complex, need to look into making each part of the activity load
  *  and show a little loading wheel
+ *
+ *  TODO: EVO CHAINS WON'T WORK FOR DIFFERENT FORMS YET
  */
 public class EvolutionChainService
 {
@@ -43,8 +43,11 @@ public class EvolutionChainService
         LinkedList<EvolutionChainStage> evolutionChainStages = queryForPokemonInTheEvolutionChain(evolutionChainNumber);
 
         // now create a full object for evo chain that details the name, number and artwork for
-        // each Pokemon in the chain
-        EvolutionChain evolutionChain = new EvolutionChain(evolutionChainStages);
+        // each Pokemon in the chain as well as if there are any stages where a Pokemon could evolve
+        // into one of several other Pokemon
+        boolean isStandardChain =
+                evolutionChainStages.stream().noneMatch(EvolutionChainStage::isOneOfManyPotentialStages);
+        EvolutionChain evolutionChain = new EvolutionChain(evolutionChainStages, isStandardChain);
 
         pokemon.setEvolutionChain(evolutionChain);
     }
@@ -86,7 +89,8 @@ public class EvolutionChainService
         // if there was a valid response, build up a list of the evolution stages
         if(evolutionDetailsResponse.body() != null)
         {
-            populateEvolutionChain(evolutionDetailsResponse.body().getAsJsonObject().get("chain"), evolutionChainStages);
+            // first stage is never one of alternate choices, so last param is false here
+            populateEvolutionChain(evolutionDetailsResponse.body().getAsJsonObject().get("chain"), evolutionChainStages, false);
         }
 
         return evolutionChainStages;
@@ -98,7 +102,7 @@ public class EvolutionChainService
      * Do this recursively due to the recursive structure that PokeAPI uses where each step in the
      * evolution contains details of the next step via a nested JSON structure
      */
-    private static void populateEvolutionChain(JsonElement evolutionChainJson, LinkedList<EvolutionChainStage> evolutionChainStages)
+    private static void populateEvolutionChain(JsonElement evolutionChainJson, LinkedList<EvolutionChainStage> evolutionChainStages, boolean isOneOfManyPotentialStages)
     {
         JsonObject currentJsonLayer = evolutionChainJson.getAsJsonObject();
         JsonObject pokemonJson = currentJsonLayer.getAsJsonObject().get("species").getAsJsonObject();
@@ -114,13 +118,15 @@ public class EvolutionChainService
         // get the trigger
         EvolutionTrigger evolutionTrigger = buildEvolutionStageTrigger(currentJsonLayer);
 
-        // TODO: We already have the details of the Pokemon on the current page so should look to reuse artwork for that one
+        // TODO: Already have the details of the Pokemon on the current page so should look to reuse artwork for that one
         // TODO: This is going to be making a few calls to PokeApi so worth looking into how to make load separately with little loading wheel
         // get the artwork from PokeApi
         Bitmap artwork = ArtworkService.queryForPokemonArtwork(String.valueOf(pokemonNumber));
 
         // add the dex number, name, and trigger for a particular stage, then add it to the list
-        EvolutionChainStage evolutionStage = new EvolutionChainStage(pokemonNumber, capitalisedPokemonName, artwork, evolutionTrigger);
+        EvolutionChainStage evolutionStage =
+                new EvolutionChainStage(pokemonNumber, capitalisedPokemonName, artwork,
+                        evolutionTrigger, isOneOfManyPotentialStages);
         evolutionChainStages.add(evolutionStage);
 
         JsonArray evolvesToArray = currentJsonLayer.get("evolves_to").getAsJsonArray();
@@ -129,7 +135,7 @@ public class EvolutionChainService
         // evolve into one other Pokemon
         if(evolvesToArray.size() == 1)
         {
-            populateEvolutionChain(evolvesToArray.get(0), evolutionChainStages);
+            populateEvolutionChain(evolvesToArray.get(0), evolutionChainStages, false);
         }
         // non-standard evolution chains are where Pokemon can evolve into multiple potential
         // different Pokemon or don't follow the standard pattern (e.g Eevee)
@@ -137,7 +143,7 @@ public class EvolutionChainService
         {
             for(int i = 0; i < evolvesToArray.size(); i++)
             {
-                populateEvolutionChain(evolvesToArray.get(i), evolutionChainStages);
+                populateEvolutionChain(evolvesToArray.get(i), evolutionChainStages, true);
             }
         }
     }
@@ -161,7 +167,8 @@ public class EvolutionChainService
         {
             try
             {
-                evolutionTrigger = EvolutionTriggerService.buildEvolutionTriggerDetails(pokemonName, evolutionDetails.get(0).getAsJsonObject());
+                evolutionTrigger = EvolutionTriggerService
+                        .buildEvolutionTriggerDetails(pokemonName, evolutionDetails.get(0).getAsJsonObject());
             }
             catch(JsonProcessingException exc)
             {

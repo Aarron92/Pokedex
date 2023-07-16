@@ -35,17 +35,24 @@ public class EvolutionChainStage
      */
     EvolutionTrigger trigger;
 
+    /**
+     * Whether this is one of several Pokemon that could be evolved into at this stage
+     */
+    boolean isOneOfManyPotentialStages;
+
     public EvolutionChainStage()
     {
         // empty constructor
     }
 
-    public EvolutionChainStage(int dexNumber, String name, Bitmap artwork, EvolutionTrigger trigger)
+    public EvolutionChainStage(int dexNumber, String name, Bitmap artwork,
+                               EvolutionTrigger trigger, boolean isOneOfManyPotentialStages)
     {
         this.dexNumber = dexNumber;
         this.name = name;
         this.artwork = artwork;
         this.trigger = trigger;
+        this.isOneOfManyPotentialStages = isOneOfManyPotentialStages;
     }
 
     public int getDexNumber()
@@ -86,5 +93,13 @@ public class EvolutionChainStage
     public void setTrigger(EvolutionTrigger trigger)
     {
         this.trigger = trigger;
+    }
+
+    public boolean isOneOfManyPotentialStages() {
+        return isOneOfManyPotentialStages;
+    }
+
+    public void setChoiceOfStage(boolean isOneOfManyPotentialStages) {
+        isOneOfManyPotentialStages = isOneOfManyPotentialStages;
     }
 }
