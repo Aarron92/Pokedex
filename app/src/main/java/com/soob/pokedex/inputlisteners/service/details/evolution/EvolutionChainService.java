@@ -38,16 +38,18 @@ public class EvolutionChainService
         String evolutionChainUrl = pokemonSpeciesDetailsJson.get("evolution_chain").getAsJsonObject().get("url").getAsString();
         int evolutionChainNumber = pullNumberOutOfUrl(evolutionChainUrl);
 
-        // get the names of the Pokemon in the evolution chain
-        // TODO: Not sure if I actually need the Linked impl anymore, but left in for now
-        LinkedList<EvolutionChainStage> evolutionChainStages = queryForPokemonInTheEvolutionChain(evolutionChainNumber);
+//        // get the names of the Pokemon in the evolution chain
+//        // TODO: Not sure if I actually need the Linked impl anymore, but left in for now
+//        LinkedList<EvolutionChainStage> evolutionChainStages = queryForPokemonInTheEvolutionChain(evolutionChainNumber);
+//
+//        // now create a full object for evo chain that details the name, number and artwork for
+//        // each Pokemon in the chain as well as if there are any stages where a Pokemon could evolve
+//        // into one of several other Pokemon
+//        boolean isStandardChain =
+//                evolutionChainStages.stream().noneMatch(EvolutionChainStage::isOneOfManyPotentialStages);
+//        EvolutionChain evolutionChain = new EvolutionChain(evolutionChainStages, isStandardChain);
 
-        // now create a full object for evo chain that details the name, number and artwork for
-        // each Pokemon in the chain as well as if there are any stages where a Pokemon could evolve
-        // into one of several other Pokemon
-        boolean isStandardChain =
-                evolutionChainStages.stream().noneMatch(EvolutionChainStage::isOneOfManyPotentialStages);
-        EvolutionChain evolutionChain = new EvolutionChain(evolutionChainStages, isStandardChain);
+        EvolutionChain evolutionChain = queryForPokemonInTheEvolutionChainNew(evolutionChainNumber);
 
         pokemon.setEvolutionChain(evolutionChain);
     }
@@ -146,6 +148,25 @@ public class EvolutionChainService
                 populateEvolutionChain(evolvesToArray.get(i), evolutionChainStages, true);
             }
         }
+    }
+
+    public static EvolutionChain queryForPokemonInTheEvolutionChainNew(int evolutionChainNumber)
+    {
+       EvolutionChain evolutionChain = new EvolutionChain();
+
+        // query the API for the evolution chain details of the specific Pokemon
+        Call<JsonElement> evolutionsDetailsCall =
+                PokeApiClient.getInstance().getPokeApi().getEvolutionChain(String.valueOf(evolutionChainNumber));
+        Response<JsonElement> evolutionDetailsResponse = PokeApiClientService.queryMainPokeApi(evolutionsDetailsCall);
+
+        // if there was a valid response, build up the evolution stages
+        if(evolutionDetailsResponse.body() != null)
+        {
+            // first stage is never one of alternate choices, so last param is false here
+            populateEvolutionChain(evolutionDetailsResponse.body().getAsJsonObject().get("chain"), evolutionChainStages, false);
+        }
+
+        return evolutionChain;
     }
 
     /**
